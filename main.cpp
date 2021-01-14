@@ -51,7 +51,7 @@ class Game
             }
             usleep(10000);
             rend.clear();
-            rend.drawText(1, 1, "somthing", stf::Color::dred);
+            rend.drawPixel(1, 1, 'n', stf::Color::dred);
             rend.display();
             
             dt = (clock() - begin) / 1000.f;

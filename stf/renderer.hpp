@@ -32,6 +32,7 @@ class Renderer
    void display();
    void clear();
    
+   void drawPixel(const uint8_t x, const uint8_t y, const char sym, const Color col);
    void drawText(const uint8_t x, const uint8_t y, const char *txt, const Color col);
    private:
    struct pixel

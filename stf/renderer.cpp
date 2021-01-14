@@ -33,6 +33,13 @@ void stf::Renderer::clear()
     }
 }
 
+void stf::Renderer::drawPixel(const uint8_t x, const uint8_t y, const char sym, const Color col)
+{
+    if(x < 0 || y < 0 || x >= Width || y >= Height) return;
+    m_pixs[Width * (y+1) + x+1].sym = sym;
+    m_pixs[Width * (y+1) + x].col = col;
+}
+
 void stf::Renderer::drawText(const uint8_t x, const uint8_t y, const char *txt, const Color col)
 {
     int len = strlen(txt);
