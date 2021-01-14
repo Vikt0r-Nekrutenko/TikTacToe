@@ -1,4 +1,5 @@
 #include "renderer.hpp"
+#include "utils.hpp"
 
 stf::Renderer::Renderer(const uint8_t w, const uint8_t h)
     :
@@ -33,6 +34,13 @@ void stf::Renderer::clear()
     }
 }
 
+void stf::Renderer::drawPixel(const uint8_t x, const uint8_t y, const char sym, const Color col)
+{
+    if(x < 0 || y < 0 || x >= Width || y >= Height) return;
+    m_pixs[Width * (y+1) + x+1].sym = sym;
+    m_pixs[Width * (y+1) + x].col = col;
+}
+
 void stf::Renderer::drawText(const uint8_t x, const uint8_t y, const char *txt, const Color col)
 {
     int len = strlen(txt);
@@ -41,4 +49,16 @@ void stf::Renderer::drawText(const uint8_t x, const uint8_t y, const char *txt, 
         m_pixs[Width * (y+1) + (x+i+1)].sym = txt[i];
         m_pixs[Width * (y+1) + (x+i)].col = col;
     }
+}
+
+void stf::Renderer::drawNumber(const uint8_t x, const uint8_t y, const int n, const Color col)
+{
+    char buff[32];
+    drawText(x, y, itostr(n, buff), col);
+}
+
+void stf::Renderer::drawNumber(const uint8_t x, const uint8_t y, const double n, const Color col)
+{
+    char buff[32];
+    drawText(x, y, ftostr(n, buff), col);
 }
