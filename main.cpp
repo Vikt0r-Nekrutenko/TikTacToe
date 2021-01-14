@@ -51,10 +51,10 @@ class Game
             }
             usleep(10000);
             rend.clear();
-            rend.drawNumber(1, 1, fps, stf::Color::dred);
+            rend.drawNumber(0, 0, fps, stf::Color::dred);
             rend.display();
             
-            dt = (clock() - begin) / 1000.f;
+            dt = (clock() - begin) / 1000000.f;
             elpsdTime += dt;
             cntdFrms++;
         }
@@ -64,6 +64,7 @@ class Game
 
 int main()
 {
-	Game game(10, 10);
+  winsize ws = stf::getws();
+	Game game(ws.ws_col, ws.ws_row);
 	return game.run();
 }

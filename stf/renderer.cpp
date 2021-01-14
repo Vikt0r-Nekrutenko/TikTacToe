@@ -13,12 +13,12 @@ void stf::Renderer::display()
 {
     for(int i = 0; i < Width * Height; i++)
     {
-        printf("\033[%d;%dH%c\033[%d;%dm", 
-        i / Width, 
-        i % Width, 
-        m_pixs[i].sym,
-        int(m_pixs[i].col > Color::lgrey ? 1 : 0),
-        int(m_pixs[i].col > Color::lgrey ? Color(int(m_pixs[i].col) - 8) : m_pixs[i].col));
+        printf("\033[%d;%dm\033[%d;%dH%c", 
+        int(m_pixs.at(i).col > Color::lgrey ? 1 : 0),
+        int(m_pixs.at(i).col > Color::lgrey ? Color(int(m_pixs.at(i).col) - 8) : m_pixs.at(i).col),
+        i / Width+1, 
+        i % Width+1,
+        m_pixs.at(i).sym);
     }
 }
     
@@ -28,17 +28,20 @@ void stf::Renderer::clear()
     {
         for(int x = 0; x < Width; x++)
         {
-            m_pixs[Width * y + x].sym = '+';
-            m_pixs[Width * y + x].col = Color::dgrey;
+          if(x==0 || y==0 || x==Width-1 || y==Height-1)
+          {
+            drawPixel(x, y, '#', Color::lgrey);
+          }
+          else drawPixel(x, y, '+', Color::white);
         }
     }
 }
 
 void stf::Renderer::drawPixel(const uint8_t x, const uint8_t y, const char sym, const Color col)
 {
-    if(x < 0 || y < 0 || x >= Width || y >= Height) return;
-    m_pixs[Width * (y+1) + x+1].sym = sym;
-    m_pixs[Width * (y+1) + x].col = col;
+    if(x >= Width || y >= Height) return;
+    m_pixs.at(Width * y + x).sym = sym;
+    m_pixs.at(Width * y + x).col = col;
 }
 
 void stf::Renderer::drawText(const uint8_t x, const uint8_t y, const char *txt, const Color col)
@@ -46,8 +49,7 @@ void stf::Renderer::drawText(const uint8_t x, const uint8_t y, const char *txt, 
     int len = strlen(txt);
     for(int i = 0; i < len; i++)
     {
-        m_pixs[Width * (y+1) + (x+i+1)].sym = txt[i];
-        m_pixs[Width * (y+1) + (x+i)].col = col;
+      drawPixel(x + i, y, txt[i], col);
     }
 }
 
