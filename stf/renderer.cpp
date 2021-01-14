@@ -1,4 +1,5 @@
 #include "renderer.hpp"
+#include "utils.hpp"
 
 stf::Renderer::Renderer(const uint8_t w, const uint8_t h)
     :
@@ -48,4 +49,10 @@ void stf::Renderer::drawText(const uint8_t x, const uint8_t y, const char *txt, 
         m_pixs[Width * (y+1) + (x+i+1)].sym = txt[i];
         m_pixs[Width * (y+1) + (x+i)].col = col;
     }
+}
+
+void stf::Renderer::drawNumber(const uint8_t x, const uint8_t y, const int n, const Color col)
+{
+    char buff[32];
+    drawText(x, y, itostr(n, buff), col);
 }

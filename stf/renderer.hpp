@@ -34,6 +34,7 @@ class Renderer
    
    void drawPixel(const uint8_t x, const uint8_t y, const char sym, const Color col);
    void drawText(const uint8_t x, const uint8_t y, const char *txt, const Color col);
+   void drawNumber(const uint8_t x, const uint8_t y, const int n, const Color col);
    private:
    struct pixel
    {
