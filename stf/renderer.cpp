@@ -56,3 +56,9 @@ void stf::Renderer::drawNumber(const uint8_t x, const uint8_t y, const int n, co
     char buff[32];
     drawText(x, y, itostr(n, buff), col);
 }
+
+void stf::Renderer::drawNumber(const uint8_t x, const uint8_t y, const double n, const Color col)
+{
+    char buff[32];
+    drawText(x, y, ftostr(n, buff), col);
+}
