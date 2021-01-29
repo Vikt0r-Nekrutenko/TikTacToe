@@ -1,3 +1,4 @@
+#pragma once
 #include <sys/ioctl.h>
 
 namespace stf {

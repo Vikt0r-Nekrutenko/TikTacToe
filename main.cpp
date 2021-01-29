@@ -2,27 +2,32 @@
 #include <unistd.h>
 
 #include "stf/utils.hpp"
-#include "stf/renderer.hpp"
+//#include "stf/renderer.hpp"
+
+#include "tik_tac_toe/view.hpp"
+#include "tik_tac_toe/model.hpp"
 
 class Game
 {
     stf::Renderer rend;
+    View view;
     public:
     
     Game(const uint8_t w, const uint8_t h) 
-        : rend(w, h)
+        : rend(w, h),
+        view(new Model)
     {
         
     }
     
     void update(const float dt)
     {
-        
+      view.show(rend);
     }
     
     void keyEvents(const int key)
     {
-        
+      view.keyEvents(key);
     }
     
     int run()
@@ -52,6 +57,7 @@ class Game
             usleep(10000);
             rend.clear();
             rend.drawNumber(0, 0, fps, stf::Color::dred);
+            update(dt);
             rend.display();
             
             dt = (clock() - begin) / 1000000.f;

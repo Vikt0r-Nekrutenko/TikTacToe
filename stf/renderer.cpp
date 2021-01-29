@@ -44,6 +44,12 @@ void stf::Renderer::drawPixel(const uint8_t x, const uint8_t y, const char sym, 
     m_pixs.at(Width * y + x).col = col;
 }
 
+void stf::Renderer::repaintPixel(const uint8_t x, const uint8_t y, const Color col)
+{
+  if(x >= Width || y >= Height) return;
+  m_pixs.at(Width * y + x).col = col;
+}
+
 void stf::Renderer::drawText(const uint8_t x, const uint8_t y, const char *txt, const Color col)
 {
     int len = strlen(txt);
