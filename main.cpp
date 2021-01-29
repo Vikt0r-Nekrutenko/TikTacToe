@@ -56,7 +56,7 @@ class Game
             }
             usleep(10000);
             rend.clear();
-            rend.drawNumber(0, 0, fps, stf::Color::dred);
+            rend.drawNumber(1, 1, fps, stf::Color::lgrey);
             update(dt);
             rend.display();
             
