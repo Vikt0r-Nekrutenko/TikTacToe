@@ -2,12 +2,9 @@
 
 View::View(Model *model) : model(model) {}
   
-void View::show(stf::Renderer &rend)
-  {
-    px = rend.Width / 2 - VW / 2;
-    py = rend.Height / 2 - VH / 2;
-    
-    for(uint8_t y = 0; y < VH; y++)
+void View::drawBoard(stf::Renderer &rend) const
+{
+  for(uint8_t y = 0; y < VH; y++)
     {
       for(uint8_t x = 0; x < VW; x++)
       {
@@ -21,8 +18,11 @@ void View::show(stf::Renderer &rend)
         }
       }
     }
-    
-    for(uint8_t y = 2; y < 11; y+=4)
+}
+
+void View::drawCells(stf::Renderer &rend) const
+{
+  for(uint8_t y = 2; y < 11; y+=4)
     {
       for(uint8_t x = 2; x < 11; x+=4)
       {
@@ -36,7 +36,18 @@ void View::show(stf::Renderer &rend)
         }
       }
     }
+}
+  
+void View::show(stf::Renderer &rend)
+  {
+    px = rend.Width / 2 - VW / 2;
+    py = rend.Height / 2 - VH / 2;
     
+    drawBoard(rend);
+    drawCells(rend);
+    
+    rend.drawText(px+2, py-1, "Player: ", stf::Color::dyellow);
+    rend.drawPixel(px+10, py-1, model->currentPlayer(), stf::Color::dgreen);
     rend.repaintPixel(px+sx, py+sy, stf::Color::dgreen);
   }
   
@@ -48,6 +59,8 @@ void View::keyEvents(const int key)
       case 's': if(sy <10) sy+=4; break;
       case 'a': if(sx > 2) sx-=4; break;
       case 'd': if(sx <10) sx+=4; break;
-      case ' ': model->put(sx / 5, sy / 5); break;
+      case ' ': 
+        model->update(sx / 5, sy / 5);
+        break;
     }
   }

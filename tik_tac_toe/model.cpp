@@ -2,16 +2,12 @@
 
 Model::Model()
   {
-    for(uint8_t &i : map) i = EmptyCell;
+    reset();
   }
   
-void Model::put(const uint8_t x, const uint8_t y)
-  {
-    if(get(x, y) != EmptyCell) return;
-    
-    map[BoardSize * y + x] = curplr;
-    
-    for(uint8_t j = 0; j < BoardSize; j++)
+bool Model::gameIsOver() const
+{
+  for(uint8_t j = 0; j < BoardSize; j++)
     {
       if((get(0,j) == curplr &&
          get(1,j) == curplr &&
@@ -29,9 +25,31 @@ void Model::put(const uint8_t x, const uint8_t y)
          get(1, 1) == curplr &&
          get(0, 2) == curplr))
       {
-        for(uint8_t &i : map) i = EmptyCell;
+        return true;
       }
     }
+    return false;
+}
+
+void Model::update(const uint8_t x, const uint8_t y)
+{
+  put(x, y);
+  if(gameIsOver()) 
+  {
+    reset();
+  }
+}
+  
+void Model::reset()
+{
+  for(uint8_t &i : map) i = EmptyCell;
+}
+  
+void Model::put(const uint8_t x, const uint8_t y)
+  {
+    if(get(x, y) != EmptyCell) return;
+    
+    map[BoardSize * y + x] = curplr;
     curplr ^= 1;
   }
   

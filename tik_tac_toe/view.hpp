@@ -8,8 +8,11 @@ class View
   
   Model *model;
   const uint8_t VW = 13, VH = 13;
-  uint8_t px, py;
   uint8_t sx = 2, sy = 2;
+  uint8_t px, py;
+  
+  void drawBoard(stf::Renderer &rend) const;
+  void drawCells(stf::Renderer &rend) const;
   
   public:
   
