@@ -22,7 +22,7 @@ void stf::Renderer::display()
     }
 }
     
-void stf::Renderer::clear()
+void stf::Renderer::clear(const char sym, const Color col)
 {
     for(int y = 0; y < Height; y++)
     {
@@ -30,9 +30,9 @@ void stf::Renderer::clear()
         {
           if(x==0 || y==0 || x==Width-1 || y==Height-1)
           {
-            drawPixel(x, y, '#', Color::lgrey);
+            drawPixel(x, y, '*', Color::dgrey);
           }
-          else drawPixel(x, y, '+', Color::white);
+          else drawPixel(x, y, sym, col);
         }
     }
 }

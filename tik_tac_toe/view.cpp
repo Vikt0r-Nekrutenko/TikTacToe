@@ -10,7 +10,7 @@ void View::drawBoard(stf::Renderer &rend) const
       {
         if(x % 4 == 0 || y % 4 == 0)
         {
-          rend.drawPixel(px+x, py+y, '#', stf::Color::dred);
+          rend.drawPixel(px+x, py+y, '*', stf::Color::dred);
         }
         else
         {
@@ -56,7 +56,6 @@ void View::show(stf::Renderer &rend)
     
     rend.drawText(px+VW-4, py+VH, "O:", stf::Color::dyellow);
     rend.drawNumber(px+VW-2, py+VH, model->oWins(), stf::Color::dgreen);
-    
     
     rend.repaintPixel(px+sx, py+sy, stf::Color::dgreen);
   }

@@ -31,7 +31,7 @@ class Renderer
    
    Renderer(const uint8_t w, const uint8_t h);
    void display();
-   void clear();
+   void clear(const char sym = ' ', const Color col = Color::black);
    
    void drawPixel(const uint8_t x, const uint8_t y, const char sym, const Color col);
    void repaintPixel(const uint8_t x, const uint8_t y,  const Color col);
