@@ -46,17 +46,24 @@ void View::show(stf::Renderer &rend)
     drawBoard(rend);
     drawCells(rend);
     
+    // title
+    rend.drawText(px+1, py-4, "Tik", stf::Color::lgreen);
+    rend.drawText(px+5, py-4, "Tac", stf::Color::lpurple);
+    rend.drawText(px+9, py-4, "Toe", stf::Color::lcyan);
+    
+    // current player
     rend.drawText(px+2, py-1, "Player: ", stf::Color::dyellow);
     rend.drawPixel(px+10, py-1, model->currentPlayer(), stf::Color::dgreen);
     
-    
+    // score x player
     rend.drawText(px+2, py+VH, "X:", stf::Color::dyellow);
     rend.drawNumber(px+4, py+VH, model->xWins(), stf::Color::dgreen);
     
-    
+    // score y player
     rend.drawText(px+VW-4, py+VH, "O:", stf::Color::dyellow);
     rend.drawNumber(px+VW-2, py+VH, model->oWins(), stf::Color::dgreen);
     
+    // current cell
     rend.repaintPixel(px+sx, py+sy, stf::Color::dgreen);
   }
   
