@@ -33,11 +33,21 @@ bool Model::gameIsOver() const
 
 void Model::update(const uint8_t x, const uint8_t y)
 {
+  if(get(x, y) != EmptyCell)
+  {
+    return;
+  }
+  
   put(x, y);
+  
   if(gameIsOver()) 
   {
+    if(curplr) xwins++;
+    else owins++;
     reset();
   }
+  
+  curplr ^= 1;
 }
   
 void Model::reset()
@@ -47,10 +57,7 @@ void Model::reset()
   
 void Model::put(const uint8_t x, const uint8_t y)
   {
-    if(get(x, y) != EmptyCell) return;
-    
     map[BoardSize * y + x] = curplr;
-    curplr ^= 1;
   }
   
 uint8_t Model::currentPlayer() const
@@ -62,3 +69,12 @@ uint8_t Model::get(const uint8_t x, const uint8_t y) const
   {
     return map[BoardSize * y + x];
   }
+  
+uint8_t Model::xWins() const
+{
+  return xwins;
+}
+uint8_t Model::oWins() const
+{
+  return owins;
+}
