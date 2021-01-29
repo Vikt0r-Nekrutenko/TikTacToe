@@ -10,6 +10,7 @@ class Model
   
   Model();
   void put(const uint8_t x, const uint8_t y);
+  uint8_t currentPlayer() const;
   uint8_t get(const uint8_t x, const uint8_t y) const;
   
   private:

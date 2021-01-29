@@ -35,6 +35,11 @@ void Model::put(const uint8_t x, const uint8_t y)
     curplr ^= 1;
   }
   
+uint8_t Model::currentPlayer() const
+{
+  return curplr ? 'X' : 'O';
+}
+  
 uint8_t Model::get(const uint8_t x, const uint8_t y) const
   {
     return map[BoardSize * y + x];

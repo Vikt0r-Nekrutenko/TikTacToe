@@ -4,17 +4,20 @@ View::View(Model *model) : model(model) {}
   
 void View::show(stf::Renderer &rend)
   {
-    for(uint8_t y = 0; y < 13; y++)
+    px = rend.Width / 2 - VW / 2;
+    py = rend.Height / 2 - VH / 2;
+    
+    for(uint8_t y = 0; y < VH; y++)
     {
-      for(uint8_t x = 0; x < 13; x++)
+      for(uint8_t x = 0; x < VW; x++)
       {
         if(x % 4 == 0 || y % 4 == 0)
         {
-          rend.drawPixel(x, y, '#', stf::Color::dred);
+          rend.drawPixel(px+x, py+y, '#', stf::Color::dred);
         }
         else
         {
-          rend.drawPixel(x, y, ' ', stf::Color::white);
+          rend.drawPixel(px+x, py+y, ' ', stf::Color::white);
         }
       }
     }
@@ -25,26 +28,26 @@ void View::show(stf::Renderer &rend)
       {
         if(model->get(x / 5, y / 5) < 2)
         {
-          rend.drawPixel(x, y, model->get(x / 5, y / 5) ? 'X' : 'O', stf::Color::dyellow);
+          rend.drawPixel(px+x, py+y, model->get(x / 5, y / 5) ? 'X' : 'O', stf::Color::dyellow);
         }
         else
         {
-          rend.drawPixel(x, y, '_', stf::Color::dyellow);
+          rend.drawPixel(px+x, py+y, '_', stf::Color::dyellow);
         }
       }
     }
     
-    rend.repaintPixel(px, py, stf::Color::dgreen);
+    rend.repaintPixel(px+sx, py+sy, stf::Color::dgreen);
   }
   
 void View::keyEvents(const int key)
   {
     switch(key)
     {
-      case 'w': if(py > 2) py-=4; break;
-      case 's': if(py <10) py+=4; break;
-      case 'a': if(px > 2) px-=4; break;
-      case 'd': if(px <10) px+=4; break;
-      case ' ': model->put(px / 5, py / 5); break;
+      case 'w': if(sy > 2) sy-=4; break;
+      case 's': if(sy <10) sy+=4; break;
+      case 'a': if(sx > 2) sx-=4; break;
+      case 'd': if(sx <10) sx+=4; break;
+      case ' ': model->put(sx / 5, sy / 5); break;
     }
   }

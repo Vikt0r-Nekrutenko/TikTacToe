@@ -7,7 +7,9 @@ class View
   private:
   
   Model *model;
-  uint8_t px = 2, py = 2;
+  const uint8_t VW = 13, VH = 13;
+  uint8_t px, py;
+  uint8_t sx = 2, sy = 2;
   
   public:
   
