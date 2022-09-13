@@ -2,6 +2,7 @@
 #include "imodel.hpp"
 #include "iview.hpp"
 #include "sprite.hpp"
+#include "gamemodel.hpp"
 
 using namespace stf;
 using namespace stf::smv;
