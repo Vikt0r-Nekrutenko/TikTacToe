@@ -17,6 +17,18 @@ class GameModel : public BaseModel
     GameModel() { }
     const uint8_t* board() const { return m_board; }
     const Cursor& cursor() const { return m_cursor; }
+    IView* keyEventsHandler(IView* sender, const int key) final
+    {
+      switch (key)
+      {
+        case 'w': if(m_cursor.pos.y > 0) m_cursor.pos -= Vec2d(0,1); break;
+        case 'a': if(m_cursor.pos.x > 0) m_cursor.pos -= Vec2d(1,0); break;
+        case 's': if(m_cursor.pos.y < 2) m_cursor.pos += Vec2d(0,1); break;
+        case 'd': if(m_cursor.pos.x < 2) m_cursor.pos += Vec2d(1,0); break;
+      }
+      return sender;
+    }
+
   private:
     uint8_t m_board[9] { 'u','u','u','u','u','u','u','u','u' };
     Cursor m_cursor {{0,0}, 'x'};
@@ -32,13 +44,17 @@ class GameView : public IView
     Vec2d pzero = renderer.Size / 2 - m_board.Size() / 2;
     m_board.show(renderer, pzero);
     
+    auto cellInterpeter = [&](const Vec2d& pos){
+      return pos * Vec2d(4, 2) + pzero +Vec2d(1, 0); 
+    };
+    
     for(int y = 0; y < 3; ++y) {
       for(int x = 0; x < 3; ++x) {
         uint8_t sym = m_gameModel->board()[3 * y + x];
-        renderer.drawPixel(Vec2d(x,y) * Vec2d(4, 2) + pzero +Vec2d(1, 0), sym);
+        renderer.drawPixel(cellInterpeter(Vec2d(x,y)), sym);
       }
     }
-    renderer.drawPixel(m_gameModel->cursor().pos + pzero + Vec2d(1,0), m_gameModel->cursor().sym);
+    renderer.drawPixel(cellInterpeter(m_gameModel->cursor().pos), m_gameModel->cursor().sym);
   }
     
   private:
@@ -50,17 +66,18 @@ class Game : public stf::Window
 {
     GameModel model;
     GameView gameView = GameView(&model);
+    IView* currentView = &gameView;
     
   public:
   
   bool onUpdate(const float dt)
 	{
-	  gameView.show(renderer);
+	  currentView->show(renderer);
 	  return true; 
 	}
 	void keyEvents(const int key)
 	{ 
-    
+    currentView->keyEventsHandler(key);
 	}
 	void mouseEvents(const stf::MouseRecord &mr)
 	{
