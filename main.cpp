@@ -19,12 +19,7 @@ class GameModel : public BaseModel
     }
     const uint8_t* board() const { return m_board; }
     const Cursor& cursor() const { return m_cursor; }
-    IView* update(IView* sender, const float dt) final
-    {
-      if (isGameOver)
-        return nullptr;
-      return sender;
-    }
+
     IView* keyEventsHandler(IView* sender, const int key) final
     {
       switch (key)
@@ -40,7 +35,7 @@ class GameModel : public BaseModel
             m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';
           }
       }
-      return sender;
+      return gameIsOver() ? sender : sender;
     }
 
   private:
@@ -63,6 +58,14 @@ class GameModel : public BaseModel
         }
       }
     }
+};
+
+class CloseView : public IView
+{
+  public:
+  CloseView(GameModel* model) : IView(model) { }
+  void show(Renderer& renderer) final { }
+  bool isContinue() const final { return false; }
 };
 
 class GameView : public IView
@@ -104,6 +107,14 @@ class MenuView : public IView
     renderer.drawText(pzero - m_menu.at(0).length() / 2, m_menu.at(0).c_str());
   }
   
+  IView* keyEventsHandler(const int key) final
+  {
+    switch(key)
+    {
+      case 'q': return new CloseView(m_gameModel);
+    }
+  }
+  
   private:
     std::vector<std::string> m_menu { "start" };
     GameModel* m_gameModel;
@@ -115,17 +126,19 @@ class Game : public stf::Window
     MenuView menuView = MenuView(&model);
     GameView gameView = GameView(&model);
     IView* currentView = &menuView;
+    //bool isContinue = true;
     
   public:
   
   bool onUpdate(const float dt)
 	{
-	  currentView->show(renderer);
-	  return currentView->update(dt) == nullptr ? false : true; 
+    currentView->show(renderer);
+    currentView = currentView->update(dt);
+    return currentView->isContinue();
 	}
 	void keyEvents(const int key)
 	{ 
-    currentView->keyEventsHandler(key);
+    currentView = currentView->keyEventsHandler(key);
 	}
 	void mouseEvents(const stf::MouseRecord &mr)
 	{
