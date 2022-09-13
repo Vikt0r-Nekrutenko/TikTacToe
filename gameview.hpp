@@ -42,6 +42,7 @@ class MenuView : public IView
   private:
   
   std::vector<std::string> m_menu { "start", "exit" };
+  Vec2d m_cursor {0, 0};
   GameModel* m_gameModel;
 };
 

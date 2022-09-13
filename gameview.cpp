@@ -34,14 +34,23 @@ void  MenuView::show(Renderer& renderer)
     renderer.drawText(pzero - str.length() / 2 + Vec2d(0, off), str.c_str());
     off += 2;
   }
+  renderer.drawPixel(pzero - m_menu.at(m_cursor.y).length() / 2 + Vec2d(-2, m_cursor.y * 2), '>');
 }
 
 IView* MenuView::keyEventsHandler(const int key)
 {
   switch(key)
   {
-    case 'q': return new CloseView(m_gameModel);
+    case 'w': if(m_cursor.y > 0) --m_cursor.y; break;;
+    case 's': if(m_cursor.y < 1) ++m_cursor.y; break;;
+    case ' ': 
+    switch(m_cursor.y)
+    {
+      case 0: return new GameView(m_gameModel);
+      case 1: return new CloseView(m_gameModel);
+    }
   }
+  return this;
 }
 
 CloseView::CloseView(GameModel* model) 

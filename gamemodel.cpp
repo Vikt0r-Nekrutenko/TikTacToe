@@ -1,4 +1,5 @@
 #include "gamemodel.hpp"
+#include "gameview.hpp"
 
 GameModel::GameModel() 
 { 
@@ -20,7 +21,7 @@ IView* GameModel::keyEventsHandler(IView* sender, const int key)
         m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';
       }
   }
-  return gameIsOver() ? sender : sender;
+  return gameIsOver() ? new MenuView(this) : sender;
 }
 
 bool GameModel::gameIsOver() const
@@ -37,4 +38,5 @@ bool GameModel::gameIsOver() const
       return true;
     }
   }
+  return false;
 }

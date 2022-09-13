@@ -21,7 +21,6 @@ class Game : public stf::Window
   bool onUpdate(const float dt)
 	{
     currentView->show(renderer);
-    currentView = currentView->update(dt);
     return currentView->isContinue();
 	}
 	void keyEvents(const int key)
