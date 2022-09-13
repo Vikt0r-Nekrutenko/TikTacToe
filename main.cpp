@@ -19,6 +19,12 @@ class GameModel : public BaseModel
     }
     const uint8_t* board() const { return m_board; }
     const Cursor& cursor() const { return m_cursor; }
+    IView* update(IView* sender, const float dt) final
+    {
+      if (isGameOver)
+        return nullptr;
+      return sender;
+    }
     IView* keyEventsHandler(IView* sender, const int key) final
     {
       switch (key)
@@ -32,14 +38,34 @@ class GameModel : public BaseModel
             m_board[3 * m_cursor.pos.y + m_cursor.pos.x] = m_cursor.sym;
           
             m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';
+            
+            for(int i = 0; i < 3; ++i) {
+              if((m_board[3 * i + 0] != ' ' && 
+                (m_board[3 * i + 0] == m_board[3 * i + 1] && m_board[3 * i + 1] == m_board[3 * i + 2])) || 
+                (m_board[3 * 0 + i] != ' ' && m_board[3 * 0 + i] == m_board[3 * 1 + i] && m_board[3 * 1 + i] == m_board[3 * 2 + i]))
+              {
+                isGameOver = true;
+              }
+            }
+            if(m_board[3 * 0 + 0] != ' ' && 
+                (m_board[3 * 0 + 0] == m_board[3 * 1 + 1] && m_board[3 * 1 + 1] == m_board[3 * 2 + 2]))
+            {
+              isGameOver = true;
+            }
+            if(m_board[3 * 0 + 2] != ' ' && 
+                (m_board[3 * 0 + 2] == m_board[3 * 1 + 1] && m_board[3 * 1 + 1] == m_board[3 * 2 + 0]))
+            {
+              isGameOver = true;
+            }
           }
       }
       return sender;
     }
 
   private:
-    uint8_t m_board[9];
     Cursor m_cursor {{0,0}, 'x'};
+    uint8_t m_board[9];
+    bool isGameOver = false;
 };
 
 class GameView : public IView
@@ -81,7 +107,7 @@ class Game : public stf::Window
   bool onUpdate(const float dt)
 	{
 	  currentView->show(renderer);
-	  return true; 
+	  return currentView->update(dt) == nullptr ? false : true; 
 	}
 	void keyEvents(const int key)
 	{ 
