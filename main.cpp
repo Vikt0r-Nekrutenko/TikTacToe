@@ -45,21 +45,11 @@ class GameModel : public BaseModel
             };
             
             for(int i = 0; i < 3; ++i) {
-              if(winCheck(0, i, 1, i, 2, i) || 
-                winCheck(i, 0, i, 1, i, 2))
+              if(winCheck(0,i, 1,i, 2,i) || winCheck(i,0, i,1, i,2) || 
+                winCheck(0,0, 1,1, 2,2) || winCheck(2,0, 1,1, 0,2))
               {
                 isGameOver = true;
               }
-            }
-            if(m_board[3 * 0 + 0] != ' ' && 
-                (m_board[3 * 0 + 0] == m_board[3 * 1 + 1] && m_board[3 * 1 + 1] == m_board[3 * 2 + 2]))
-            {
-              isGameOver = true;
-            }
-            if(m_board[3 * 0 + 2] != ' ' && 
-                (m_board[3 * 0 + 2] == m_board[3 * 1 + 1] && m_board[3 * 1 + 1] == m_board[3 * 2 + 0]))
-            {
-              isGameOver = true;
             }
           }
       }
