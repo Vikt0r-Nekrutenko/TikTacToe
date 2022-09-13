@@ -8,12 +8,18 @@ using namespace stf::smv;
 
 class GameModel : public BaseModel
 {
+    struct Cursor
+    {
+      Vec2d pos;
+      uint8_t sym;
+    };
   public:
+    GameModel() { }
     const uint8_t* board() const { return m_board; }
+    const Cursor& cursor() const { return m_cursor; }
   private:
     uint8_t m_board[9] { 'u','u','u','u','u','u','u','u','u' };
-    uint8_t m_player = 'x';
-    uint8_t m_curCell = 0;
+    Cursor m_cursor {{0,0}, 'x'};
 };
 
 class GameView : public IView
@@ -32,6 +38,7 @@ class GameView : public IView
         renderer.drawPixel(Vec2d(x,y) * Vec2d(4, 2) + pzero +Vec2d(1, 0), sym);
       }
     }
+    renderer.drawPixel(m_gameModel->cursor().pos + pzero + Vec2d(1,0), m_gameModel->cursor().sym);
   }
     
   private:
