@@ -39,10 +39,14 @@ class GameModel : public BaseModel
           
             m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';
             
+            auto winCheck = [&](int x1, int y1, int x2, int y2, int x3, int y3) {
+              return m_board[3 * y1 + x1] != ' ' && 
+                (m_board[3 * y1 + x1] == m_board[3 * y2 + x2] && m_board[3 * y2 + x2] == m_board[3 * y3 + x3]);
+            };
+            
             for(int i = 0; i < 3; ++i) {
-              if((m_board[3 * i + 0] != ' ' && 
-                (m_board[3 * i + 0] == m_board[3 * i + 1] && m_board[3 * i + 1] == m_board[3 * i + 2])) || 
-                (m_board[3 * 0 + i] != ' ' && m_board[3 * 0 + i] == m_board[3 * 1 + i] && m_board[3 * 1 + i] == m_board[3 * 2 + i]))
+              if(winCheck(0, i, 1, i, 2, i) || 
+                winCheck(i, 0, i, 1, i, 2))
               {
                 isGameOver = true;
               }
