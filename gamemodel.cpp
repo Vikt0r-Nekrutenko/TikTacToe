@@ -14,6 +14,7 @@ IView* GameModel::keyEventsHandler(IView* sender, const int key)
     case 'a': if(m_cursor.pos.x > 0) m_cursor.pos -= Vec2d(1,0); break;
     case 's': if(m_cursor.pos.y < 2) m_cursor.pos += Vec2d(0,1); break;
     case 'd': if(m_cursor.pos.x < 2) m_cursor.pos += Vec2d(1,0); break;
+    case 'q': return new MenuView(this);
     case ' ': 
       if(m_board[3 * m_cursor.pos.y + m_cursor.pos.x] == ' ') {
         m_board[3 * m_cursor.pos.y + m_cursor.pos.x] = m_cursor.sym;
