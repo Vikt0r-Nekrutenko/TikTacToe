@@ -13,7 +13,7 @@ class GameView : public IView
 {
   public:
   
-  GameView(GameModel* model);
+  GameView(GameModel* model, bool toResetModel = true);
   void show(Renderer& renderer) final;
   
   private:

@@ -1,8 +1,11 @@
 #include "gameview.hpp"
 #include "gamemodel.hpp"
 
-GameView::GameView(GameModel* model)
-  : IView(model), m_gameModel(model) {}
+GameView::GameView(GameModel* model, bool toResetModel)
+  : IView(model), m_gameModel(model) 
+{
+  m_gameModel->reset();
+}
 
 void GameView::show(Renderer& renderer)
 {
@@ -46,7 +49,7 @@ IView* MenuView::keyEventsHandler(const int key)
     case ' ': 
     switch(m_cursor.y)
     {
-      case 0: return new GameView(m_gameModel);
+      case 0: return new GameView(m_gameModel, true);
       case 1: return new CloseView(m_gameModel);
     }
   }

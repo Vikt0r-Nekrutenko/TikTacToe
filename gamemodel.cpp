@@ -3,7 +3,13 @@
 
 GameModel::GameModel() 
 { 
+  reset();
+}
+
+void GameModel::reset()
+{
   memset(m_board, ' ', 9);
+  m_cursor = GameModel::Cursor{{0,0}, 'x'};
 }
 
 IView* GameModel::keyEventsHandler(IView* sender, const int key)

@@ -19,12 +19,12 @@ public:
   const uint8_t* board() const { return m_board; }
   const Cursor& cursor() const { return m_cursor; }
 
+  void reset();
   IView* keyEventsHandler(IView* sender, const int key) final;
 
   private:
     Cursor m_cursor {{0,0}, 'x'};
     uint8_t m_board[9];
-    bool isGameOver = false;
     
     bool gameIsOver() const;
 };
