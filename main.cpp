@@ -14,7 +14,9 @@ class GameModel : public BaseModel
       uint8_t sym;
     };
   public:
-    GameModel() { }
+    GameModel() { 
+      memset(m_board, ' ', 9);
+    }
     const uint8_t* board() const { return m_board; }
     const Cursor& cursor() const { return m_cursor; }
     IView* keyEventsHandler(IView* sender, const int key) final
@@ -25,12 +27,18 @@ class GameModel : public BaseModel
         case 'a': if(m_cursor.pos.x > 0) m_cursor.pos -= Vec2d(1,0); break;
         case 's': if(m_cursor.pos.y < 2) m_cursor.pos += Vec2d(0,1); break;
         case 'd': if(m_cursor.pos.x < 2) m_cursor.pos += Vec2d(1,0); break;
+        case ' ': 
+          if(m_board[3 * m_cursor.pos.y + m_cursor.pos.x] == ' ') {
+            m_board[3 * m_cursor.pos.y + m_cursor.pos.x] = m_cursor.sym;
+          
+            m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';
+          }
       }
       return sender;
     }
 
   private:
-    uint8_t m_board[9] { 'u','u','u','u','u','u','u','u','u' };
+    uint8_t m_board[9];
     Cursor m_cursor {{0,0}, 'x'};
 };
 
@@ -44,7 +52,7 @@ class GameView : public IView
     Vec2d pzero = renderer.Size / 2 - m_board.Size() / 2;
     m_board.show(renderer, pzero);
     
-    auto cellInterpeter = [&](const Vec2d& pos){
+    auto cellInterpeter = [&](const Vec2d pos){
       return pos * Vec2d(4, 2) + pzero +Vec2d(1, 0); 
     };
     
