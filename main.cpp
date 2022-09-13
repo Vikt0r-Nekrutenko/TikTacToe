@@ -112,8 +112,9 @@ class MenuView : public IView
 class Game : public stf::Window
 {
     GameModel model;
+    MenuView menuView = MenuView(&model);
     GameView gameView = GameView(&model);
-    IView* currentView = &gameView;
+    IView* currentView = &menuView;
     
   public:
   
