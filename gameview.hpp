@@ -41,7 +41,7 @@ class MenuView : public IView
   
   private:
   
-  std::vector<std::string> m_menu { "start" };
+  std::vector<std::string> m_menu { "start", "exit" };
   GameModel* m_gameModel;
 };
 

@@ -28,7 +28,12 @@ MenuView::MenuView(GameModel* model)
 void  MenuView::show(Renderer& renderer)
 {
   Vec2d pzero = renderer.Size / 2;
-  renderer.drawText(pzero - m_menu.at(0).length() / 2, m_menu.at(0).c_str());
+  
+  int off = 0;
+  for(auto& str : m_menu) {
+    renderer.drawText(pzero - str.length() / 2 + Vec2d(0, off), str.c_str());
+    off += 2;
+  }
 }
 
 IView* MenuView::keyEventsHandler(const int key)
