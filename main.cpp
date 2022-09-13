@@ -38,19 +38,6 @@ class GameModel : public BaseModel
             m_board[3 * m_cursor.pos.y + m_cursor.pos.x] = m_cursor.sym;
           
             m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';
-            
-            auto winCheck = [&](int x1, int y1, int x2, int y2, int x3, int y3) {
-              return m_board[3 * y1 + x1] != ' ' && 
-                (m_board[3 * y1 + x1] == m_board[3 * y2 + x2] && m_board[3 * y2 + x2] == m_board[3 * y3 + x3]);
-            };
-            
-            for(int i = 0; i < 3; ++i) {
-              if(winCheck(0,i, 1,i, 2,i) || winCheck(i,0, i,1, i,2) || 
-                winCheck(0,0, 1,1, 2,2) || winCheck(2,0, 1,1, 0,2))
-              {
-                isGameOver = true;
-              }
-            }
           }
       }
       return sender;
@@ -60,6 +47,22 @@ class GameModel : public BaseModel
     Cursor m_cursor {{0,0}, 'x'};
     uint8_t m_board[9];
     bool isGameOver = false;
+    
+    bool gameIsOver() const
+    {
+      auto winCheck = [&](int x1, int y1, int x2, int y2, int x3, int y3) {
+        return m_board[3 * y1 + x1] != ' ' && 
+          (m_board[3 * y1 + x1] == m_board[3 * y2 + x2] && m_board[3 * y2 + x2] == m_board[3 * y3 + x3]);
+      };
+      
+      for(int i = 0; i < 3; ++i) {
+        if(winCheck(0,i, 1,i, 2,i) || winCheck(i,0, i,1, i,2) || 
+          winCheck(0,0, 1,1, 2,2) || winCheck(2,0, 1,1, 0,2))
+        {
+          return true;
+        }
+      }
+    }
 };
 
 class GameView : public IView
@@ -88,6 +91,22 @@ class GameView : public IView
   private:
     GameModel* m_gameModel;
     Sprite m_board = Sprite("board.spr");
+};
+
+class MenuView : public IView
+{
+  public:
+  MenuView(GameModel* model) : IView(model), m_gameModel(model) {}
+  
+  void show(Renderer& renderer) final
+  {
+    Vec2d pzero = renderer.Size / 2;
+    renderer.drawText(pzero - m_menu.at(0).length() / 2, m_menu.at(0).c_str());
+  }
+  
+  private:
+    std::vector<std::string> m_menu { "start" };
+    GameModel* m_gameModel;
 };
 
 class Game : public stf::Window
