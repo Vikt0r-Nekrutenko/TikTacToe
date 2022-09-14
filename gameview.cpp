@@ -66,7 +66,7 @@ void CloseView::show(Renderer& renderer) { }
 bool CloseView::isContinue() const { return false; }
 
 EndView::EndView(GameModel* model) 
-  : IView(model) { }
+  : IView(model) {}
 
 void EndView::show(Renderer& renderer) 
 {
@@ -84,5 +84,6 @@ void EndView::show(Renderer& renderer)
 
 IView* EndView::keyEventsHandler(const int key)
 { 
+  static_cast<GameModel*>(m_model)->reset();
   return new MenuView(static_cast<GameModel*>(m_model));
 }
