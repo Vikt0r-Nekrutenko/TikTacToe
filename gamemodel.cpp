@@ -33,6 +33,15 @@ IView* GameModel::keyEventsHandler(IView* sender, const int key)
   return sender;
 }
 
+bool GameModel::isDraw() const
+{
+  for(uint8_t cell : m_board) {
+    if(cell == ' ')
+      return false;
+  }
+  return true;
+}
+
 bool GameModel::gameIsOver() const
 {
   auto winCheck = [&](int x1, int y1, int x2, int y2, int x3, int y3) {
@@ -47,5 +56,5 @@ bool GameModel::gameIsOver() const
       return true;
     }
   }
-  return false;
+  return isDraw();
 }

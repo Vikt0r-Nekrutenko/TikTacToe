@@ -20,6 +20,7 @@ public:
   const Cursor& cursor() const { return m_cursor; }
 
   void reset();
+  bool isDraw() const;
   IView* keyEventsHandler(IView* sender, const int key) final;
 
   private:
