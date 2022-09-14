@@ -37,13 +37,20 @@ class MenuView : public IView
   
   MenuView(GameModel* model);
   void show(Renderer& renderer) final;
-  IView* keyEventsHandler(const int key) final;
+  IView* keyEventsHandler(const int key) override;
   
-  private:
+  protected:
   
-  std::vector<std::string> m_menu { "new game", "continue", "exit" };
+  std::vector<std::string> m_menu { "new game", "exit" };
   Vec2d m_cursor {0, 0};
   GameModel* m_gameModel;
+};
+
+class PauseMenuView : public MenuView
+{
+  public:
+  PauseMenuView(GameModel* model);
+  IView* keyEventsHandler(const int key) final;
 };
 
 class EndView : public IView

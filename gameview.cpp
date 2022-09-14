@@ -58,6 +58,17 @@ IView* MenuView::keyEventsHandler(const int key)
   return this;
 }
 
+PauseMenuView::PauseMenuView(GameModel* model)
+  : MenuView(model)
+{
+  m_menu.insert(m_menu.begin()+1, "continue");
+}
+
+IView* PauseMenuView::keyEventsHandler(const int key)
+{
+  return MenuView::keyEventsHandler(key);
+}
+
 CloseView::CloseView(GameModel* model) 
   : IView(model) { }
 
