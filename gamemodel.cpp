@@ -25,10 +25,12 @@ IView* GameModel::keyEventsHandler(IView* sender, const int key)
       if(m_board[3 * m_cursor.pos.y + m_cursor.pos.x] == ' ') {
         m_board[3 * m_cursor.pos.y + m_cursor.pos.x] = m_cursor.sym;
       
+        if(gameIsOver()) 
+          return new EndView(this);
         m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';
       }
   }
-  return gameIsOver() ? new EndView(this) : sender;
+  return sender;
 }
 
 bool GameModel::gameIsOver() const
