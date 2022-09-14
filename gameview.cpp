@@ -14,7 +14,9 @@ void GameView::show(Renderer& renderer)
   m_board.show(renderer, pzero);
   
   auto cellInterpeter = [&](const Vec2d pos){
-    return pos * Vec2d(4, 2) + pzero +Vec2d(1, 0); 
+    float ox = std::ceil(m_board.Size().x / 3.f) * pos.x+4.f;
+    float oy = std::ceil(m_board.Size().y / 3.f) * pos.y+1.f;
+    return Vec2d(ox, oy) + pzero;
   };
   
   for(int y = 0; y < 3; ++y) {
