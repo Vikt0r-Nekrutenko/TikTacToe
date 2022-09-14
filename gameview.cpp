@@ -47,13 +47,17 @@ IView* MenuView::keyEventsHandler(const int key)
   {
     case 'w': if(m_cursor.y > 0) --m_cursor.y; break;;
     case 's': if(m_cursor.y < m_menu.size()-1) ++m_cursor.y; break;
-    case ' ': 
-    switch(m_cursor.y)
-    {
-      case 0: return new GameView(m_gameModel, true);
-      case 1: return new GameView(m_gameModel, false);
-      case 2: return new CloseView(m_gameModel);
-    }
+    case ' ': return menuSelectConfirm();
+  }
+  return this;
+}
+
+IView* MenuView::menuSelectConfirm()
+{
+  switch(m_cursor.y)
+  {
+    case 0: return new GameView(m_gameModel, true);
+    case 1: return new CloseView(m_gameModel);
   }
   return this;
 }
@@ -64,9 +68,15 @@ PauseMenuView::PauseMenuView(GameModel* model)
   m_menu.insert(m_menu.begin()+1, "continue");
 }
 
-IView* PauseMenuView::keyEventsHandler(const int key)
+IView* PauseMenuView::menuSelectConfirm()
 {
-  return MenuView::keyEventsHandler(key);
+  switch(m_cursor.y)
+  {
+    case 0: return new GameView(m_gameModel, true);
+    case 1: return new GameView(m_gameModel, false);
+    case 2: return new CloseView(m_gameModel);
+  }
+  return this;
 }
 
 CloseView::CloseView(GameModel* model) 

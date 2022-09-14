@@ -44,13 +44,15 @@ class MenuView : public IView
   std::vector<std::string> m_menu { "new game", "exit" };
   Vec2d m_cursor {0, 0};
   GameModel* m_gameModel;
+  
+  virtual IView* menuSelectConfirm(); 
 };
 
 class PauseMenuView : public MenuView
 {
   public:
   PauseMenuView(GameModel* model);
-  IView* keyEventsHandler(const int key) final;
+  IView* menuSelectConfirm() final;
 };
 
 class EndView : public IView
