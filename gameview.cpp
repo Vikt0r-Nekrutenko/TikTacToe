@@ -4,7 +4,7 @@
 Vec2d rendSize {0,0};
 
 GameView::GameView(GameModel* model, bool toResetModel)
-  : IView(model), m_gameModel(model) 
+  : IView(model), m_gameModel(model), m_ox{Sprite("o.spr"),Sprite("x.spr"),Sprite("e.spr")}
 {
   if(toResetModel)
     m_gameModel->reset();
@@ -25,18 +25,14 @@ void GameView::show(Renderer& renderer)
   for(int y = 0; y < 3; ++y) {
     for(int x = 0; x < 3; ++x) {
       uint8_t sym = m_gameModel->board()[3 * y + x];
-      if(sym == 'o')
-        m_o.show(renderer, cellInterpeter({x,y}) - m_o.Size()/2);
-      else if(sym == 'x')
-        m_x.show(renderer, cellInterpeter({x,y}) - m_x.Size()/2);
+      Sprite* s = symSelect(sym);
+      s->show(renderer, cellInterpeter({x,y}) - s->Size()/2);
     }
   }
   
   Vec2d cursorPos = m_gameModel->cursor().pos;
-  if(m_gameModel->cursor().sym == 'o')
-    m_o.show(renderer, cellInterpeter(cursorPos) - m_o.Size()/2);
-  else
-    m_x.show(renderer, cellInterpeter(cursorPos) - m_x.Size()/2);
+  Sprite* s = symSelect(m_gameModel->cursor().sym);
+  s->show(renderer, cellInterpeter(cursorPos) - s->Size()/2);
 }
 
 IView* GameView::mouseEventsHandler(const MouseRecord& mr)

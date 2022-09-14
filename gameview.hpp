@@ -20,9 +20,16 @@ class GameView : public IView
   private:
   
   GameModel* m_gameModel;
+  Sprite m_ox[3];
   Sprite m_board = Sprite("board.spr");
-  Sprite m_o = Sprite("o.spr");
-  Sprite m_x = Sprite("x.spr");
+  
+  inline Sprite* symSelect(const uint8_t s) { 
+    if(s=='o')
+      return &m_ox[0]; 
+    else if(s=='x') 
+      return &m_ox[1];
+    return &m_ox[2];
+  }
 };
 
 class CloseView : public IView
