@@ -12,6 +12,18 @@ void GameModel::reset()
   m_cursor = GameModel::Cursor{{0,0}, 'x'};
 }
 
+bool GameModel::put(Vec2d pos)
+{
+  if(m_board[3 * pos.y + pos.x] == ' ') {
+    m_board[3 * pos.y + pos.x] = m_cursor.sym;
+  
+    if(gameIsOver()) 
+      return false;
+    m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';
+  }
+  return true;
+}
+
 IView* GameModel::keyEventsHandler(IView* sender, const int key)
 {
   switch (key)
@@ -22,13 +34,8 @@ IView* GameModel::keyEventsHandler(IView* sender, const int key)
     case 'd': if(m_cursor.pos.x < 2) m_cursor.pos += Vec2d(1,0); break;
     case 'q': return new PauseMenuView(this);
     case ' ': 
-      if(m_board[3 * m_cursor.pos.y + m_cursor.pos.x] == ' ') {
-        m_board[3 * m_cursor.pos.y + m_cursor.pos.x] = m_cursor.sym;
-      
-        if(gameIsOver()) 
-          return new EndView(this);
-        m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';
-      }
+      if(!put(m_cursor.pos))
+        return new EndView(this);
   }
   return sender;
 }

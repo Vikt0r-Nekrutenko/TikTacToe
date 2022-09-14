@@ -20,9 +20,10 @@ public:
   const Cursor& cursor() const { return m_cursor; }
 
   void reset();
+  bool put(Vec2d pos);
   bool isDraw() const;
   IView* keyEventsHandler(IView* sender, const int key) final;
-
+  
   private:
     Cursor m_cursor {{0,0}, 'x'};
     uint8_t m_board[9];

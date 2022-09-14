@@ -15,6 +15,7 @@ class GameView : public IView
   
   GameView(GameModel* model, bool toResetModel = true);
   void show(Renderer& renderer) final;
+  IView* mouseEventsHandler(const MouseRecord& mr) final;
   
   private:
   

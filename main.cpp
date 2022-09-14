@@ -29,7 +29,7 @@ class Game : public stf::Window
 	}
 	void mouseEvents(const stf::MouseRecord &mr)
 	{
-	  
+	  currentView = currentView->mouseEventsHandler(mr);
 	}	
 };
 

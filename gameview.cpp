@@ -1,6 +1,8 @@
 #include "gameview.hpp"
 #include "gamemodel.hpp"
 
+Vec2d rendSize {0,0};
+
 GameView::GameView(GameModel* model, bool toResetModel)
   : IView(model), m_gameModel(model) 
 {
@@ -10,12 +12,13 @@ GameView::GameView(GameModel* model, bool toResetModel)
 
 void GameView::show(Renderer& renderer)
 {
+  rendSize = renderer.Size;
   Vec2d pzero = renderer.Size / 2 - m_board.Size() / 2;
   m_board.show(renderer, pzero);
   
   auto cellInterpeter = [&](const Vec2d pos){
-    float ox = std::ceil(m_board.Size().x / 3.f) * pos.x+4.f;
-    float oy = std::ceil(m_board.Size().y / 3.f) * pos.y+1.f;
+    float ox = std::ceil(m_board.Size().x / 3.f) * pos.x+7.f;
+    float oy = std::ceil(m_board.Size().y / 3.f) * pos.y+2.f;
     return Vec2d(ox, oy) + pzero;
   };
   
@@ -26,6 +29,18 @@ void GameView::show(Renderer& renderer)
     }
   }
   renderer.drawPixel(cellInterpeter(m_gameModel->cursor().pos), m_gameModel->cursor().sym);
+}
+
+IView* GameView::mouseEventsHandler(const MouseRecord& mr)
+{
+  Vec2d mp(mr.x, mr.y);
+  Vec2d dif = (m_board.Size() + 2) / 3;
+  Vec2d rp = rendSize / 2.f - m_board.Size() / 2.f;
+  Vec2d pos = (mr - rp) / dif;
+  
+  
+  
+  return this;
 }
 
 MenuView::MenuView(GameModel* model) 
