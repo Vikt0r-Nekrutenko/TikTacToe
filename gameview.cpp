@@ -36,11 +36,11 @@ IView* GameView::mouseEventsHandler(const MouseRecord& mr)
   Vec2d mp(mr.x, mr.y);
   Vec2d dif = (m_board.Size() + 2) / 3;
   Vec2d rp = rendSize / 2.f - m_board.Size() / 2.f;
-  Vec2d pos = (mr - rp) / dif;
+  Vec2d pos = (mp - rp) / dif;
   
+  static_cast<GameModel*>(m_model)->setCursorPosition(pos);
   
-  
-  return this;
+  return m_model->mouseEventsHandler(this, mr);
 }
 
 MenuView::MenuView(GameModel* model) 

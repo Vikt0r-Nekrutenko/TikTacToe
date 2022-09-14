@@ -12,16 +12,33 @@ void GameModel::reset()
   m_cursor = GameModel::Cursor{{0,0}, 'x'};
 }
 
-bool GameModel::put(Vec2d pos)
+IView* GameModel::put(IView* sender, Vec2d pos)
 {
-  if(m_board[3 * pos.y + pos.x] == ' ') {
-    m_board[3 * pos.y + pos.x] = m_cursor.sym;
-  
-    if(gameIsOver()) 
-      return false;
-    m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';
+  {
+    if(m_board[3 * pos.y + pos.x] == ' ') {
+      m_board[3 * pos.y + pos.x] = m_cursor.sym;
+    
+      if(gameIsOver()) 
+        return new EndView(this);
+      m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';
+    }
   }
-  return true;
+  return sender;
+}
+
+void GameModel::setCursorPosition(const Vec2d& pos)
+{
+  if(pos.x >= 0 && pos.x < 3 && pos.y >= 0 && pos.y < 3) {
+    m_cursor.pos = pos;
+  }
+}
+
+IView* GameModel::mouseEventsHandler(IView* sender, const MouseRecord& mr)
+{
+  if(mr.type == MouseInputType::leftPressed) {
+    return put(sender, m_cursor.pos);
+  }
+  return sender;
 }
 
 IView* GameModel::keyEventsHandler(IView* sender, const int key)
@@ -34,8 +51,7 @@ IView* GameModel::keyEventsHandler(IView* sender, const int key)
     case 'd': if(m_cursor.pos.x < 2) m_cursor.pos += Vec2d(1,0); break;
     case 'q': return new PauseMenuView(this);
     case ' ': 
-      if(!put(m_cursor.pos))
-        return new EndView(this);
+        return put(sender, m_cursor.pos);
   }
   return sender;
 }
