@@ -25,10 +25,18 @@ void GameView::show(Renderer& renderer)
   for(int y = 0; y < 3; ++y) {
     for(int x = 0; x < 3; ++x) {
       uint8_t sym = m_gameModel->board()[3 * y + x];
-      renderer.drawPixel(cellInterpeter(Vec2d(x,y)), sym);
+      if(sym == 'o')
+        m_o.show(renderer, cellInterpeter({x,y}) - m_o.Size()/2);
+      else if(sym == 'x')
+        m_x.show(renderer, cellInterpeter({x,y}) - m_x.Size()/2);
     }
   }
-  renderer.drawPixel(cellInterpeter(m_gameModel->cursor().pos), m_gameModel->cursor().sym);
+  
+  Vec2d cursorPos = m_gameModel->cursor().pos;
+  if(m_gameModel->cursor().sym == 'o')
+    m_o.show(renderer, cellInterpeter(cursorPos) - m_o.Size()/2);
+  else
+    m_x.show(renderer, cellInterpeter(cursorPos) - m_x.Size()/2);
 }
 
 IView* GameView::mouseEventsHandler(const MouseRecord& mr)
@@ -39,7 +47,6 @@ IView* GameView::mouseEventsHandler(const MouseRecord& mr)
   Vec2d pos = (mp - rp) / dif;
   
   static_cast<GameModel*>(m_model)->setCursorPosition(pos);
-  
   return m_model->mouseEventsHandler(this, mr);
 }
 

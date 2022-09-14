@@ -21,6 +21,8 @@ class GameView : public IView
   
   GameModel* m_gameModel;
   Sprite m_board = Sprite("board.spr");
+  Sprite m_o = Sprite("o.spr");
+  Sprite m_x = Sprite("x.spr");
 };
 
 class CloseView : public IView
