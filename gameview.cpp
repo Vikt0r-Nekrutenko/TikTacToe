@@ -31,6 +31,7 @@ void GameView::show(Renderer& renderer)
   }
   
   Vec2d cursorPos = m_gameModel->cursor().pos;
+  renderer.drawFrame(cellInterpeter(cursorPos)-Vec2d(13,7)/2, Vec2d(13,7));
   Sprite* s = symSelect(m_gameModel->cursor().sym);
   s->show(renderer, cellInterpeter(cursorPos) - s->Size()/2);
 }
