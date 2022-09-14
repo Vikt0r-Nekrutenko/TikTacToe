@@ -46,5 +46,13 @@ class MenuView : public IView
   GameModel* m_gameModel;
 };
 
+class EndView : public IView
+{
+  public:
+  
+  EndView(GameModel* model);
+  void show(Renderer& renderer) final;
+  IView* keyEventsHandler(const int key) final;
+};
 
 #endif // GAMEVIEW_HPP

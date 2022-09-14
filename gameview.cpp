@@ -4,7 +4,8 @@
 GameView::GameView(GameModel* model, bool toResetModel)
   : IView(model), m_gameModel(model) 
 {
-  m_gameModel->reset();
+  if(toResetModel)
+    m_gameModel->reset();
 }
 
 void GameView::show(Renderer& renderer)
@@ -50,7 +51,7 @@ IView* MenuView::keyEventsHandler(const int key)
     switch(m_cursor.y)
     {
       case 0: return new GameView(m_gameModel, true);
-      case 1: return new GameView(m_gameModel, true);
+      case 1: return new GameView(m_gameModel, false);
       case 2: return new CloseView(m_gameModel);
     }
   }
@@ -63,3 +64,13 @@ CloseView::CloseView(GameModel* model)
 void CloseView::show(Renderer& renderer) { }
 
 bool CloseView::isContinue() const { return false; }
+
+EndView::EndView(GameModel* model) 
+  : IView(model) { }
+
+void EndView::show(Renderer& renderer) { }
+
+IView* EndView::keyEventsHandler(const int key)
+{ 
+  return new MenuView(static_cast<GameModel*>(m_model));
+}

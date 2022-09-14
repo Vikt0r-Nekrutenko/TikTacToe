@@ -28,7 +28,7 @@ IView* GameModel::keyEventsHandler(IView* sender, const int key)
         m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';
       }
   }
-  return gameIsOver() ? new MenuView(this) : sender;
+  return gameIsOver() ? new EndView(this) : sender;
 }
 
 bool GameModel::gameIsOver() const
