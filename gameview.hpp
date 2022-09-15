@@ -9,23 +9,7 @@ using namespace stf::smv;
 
 class GameModel;
 
-class BaseView : public IView
-{
-  public:
-  
-  BaseView(GameModel* model);
-  void show(Renderer& renderer) override
-  {
-    renderer.drawFrame(renderer.Size / 2 - size / 2, m_size);
-  }
-  
-  protected:
-  
-  Vec2d m_size { 18, 11 };
-  Vec2d posInterpret(Vec2d pos);
-};
-
-class GameView : public BaseView
+class GameView : public IView
 {
   public:
   
@@ -48,7 +32,7 @@ class CloseView : public IView
   bool isContinue() const final;
 };
 
-class MenuView : public BaseView
+class MenuView : public IView
 {
   public:
   
@@ -72,7 +56,7 @@ class PauseMenuView : public MenuView
   IView* menuSelectConfirm() final;
 };
 
-class EndView : public BaseView
+class EndView : public IView
 {
   public:
   
