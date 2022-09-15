@@ -22,7 +22,6 @@ public:
   void reset();
   bool isDraw() const;
   void setCursorPosition(const Vec2d& pos);
-  IView* put(IView* sender, Vec2d pos);
   IView* keyEventsHandler(IView* sender, const int key) final;
   IView* mouseEventsHandler(IView* sender, const MouseRecord& mr) final;
   
@@ -31,6 +30,7 @@ public:
     uint8_t m_board[9];
     
     bool gameIsOver() const;
+    IView* put(IView* sender, Vec2d pos);
 };
 
 
