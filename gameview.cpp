@@ -3,8 +3,10 @@
 
 Vec2d rendSize {0,0};
 
+BaseView::BaseView(GameModel* model) : IView(model) { }
+
 GameView::GameView(GameModel* model, bool toResetModel)
-  : IView(model), m_gameModel(model), m_ox{Sprite("o.spr"),Sprite("x.spr"),Sprite("e.spr")}
+  : BaseView(model), m_gameModel(model)
 {
   if(toResetModel)
     m_gameModel->reset();
@@ -12,28 +14,27 @@ GameView::GameView(GameModel* model, bool toResetModel)
 
 void GameView::show(Renderer& renderer)
 {
+  BaseView::show(renderer);
   rendSize = renderer.Size;
   Vec2d pzero = renderer.Size / 2 - m_board.Size() / 2;
   m_board.show(renderer, pzero);
   
   auto cellInterpeter = [&](const Vec2d pos){
-    float ox = std::ceil(m_board.Size().x / 3.f) * pos.x+7.f;
-    float oy = std::ceil(m_board.Size().y / 3.f) * pos.y+2.f;
+    float ox = std::ceil(m_board.Size().x / 3.f) * pos.x+1.f;
+    float oy = std::ceil(m_board.Size().y / 3.f) * pos.y+0.f;
     return Vec2d(ox, oy) + pzero;
   };
   
   for(int y = 0; y < 3; ++y) {
     for(int x = 0; x < 3; ++x) {
       uint8_t sym = m_gameModel->board()[3 * y + x];
-      Sprite* s = symSelect(sym);
-      s->show(renderer, cellInterpeter({x,y}) - s->Size()/2);
+      renderer.drawPixel(cellInterpeter({x,y}), sym);
     }
   }
   
   Vec2d cursorPos = m_gameModel->cursor().pos;
-  renderer.drawFrame(cellInterpeter(cursorPos)-Vec2d(13,7)/2, Vec2d(13,7));
-  Sprite* s = symSelect(m_gameModel->cursor().sym);
-  s->show(renderer, cellInterpeter(cursorPos) - s->Size()/2);
+  renderer.drawFrame(cellInterpeter(cursorPos)-Vec2d(3,1)/2, Vec2d(3,1));
+  renderer.drawPixel(cellInterpeter(cursorPos), m_gameModel->cursor().sym);
 }
 
 IView* GameView::mouseEventsHandler(const MouseRecord& mr)
@@ -48,10 +49,11 @@ IView* GameView::mouseEventsHandler(const MouseRecord& mr)
 }
 
 MenuView::MenuView(GameModel* model) 
-  : IView(model), m_gameModel(model) {}
+  : BaseView(model), m_gameModel(model) {}
   
 void  MenuView::show(Renderer& renderer)
 {
+  BaseView::show(renderer);
   Vec2d pzero = renderer.Size / 2;
   
   int off = 0;
@@ -108,10 +110,11 @@ void CloseView::show(Renderer& renderer) { }
 bool CloseView::isContinue() const { return false; }
 
 EndView::EndView(GameModel* model) 
-  : IView(model) {}
+  : BaseView(model) {}
 
 void EndView::show(Renderer& renderer) 
 {
+  BaseView::show(renderer);
   if(static_cast<GameModel*>(m_model)->isDraw()) {
     Vec2d p { renderer.Size / 2 - Vec2d(2, 0) };
     renderer.drawText(p, "DRAW!");
