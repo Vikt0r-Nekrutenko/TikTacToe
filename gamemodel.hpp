@@ -3,6 +3,7 @@
 
 #include "vec2d.hpp"
 #include "imodel.hpp"
+#include "time.hpp"
 
 using namespace stf;
 using namespace stf::smv;
@@ -14,6 +15,13 @@ class GameModel : public BaseModel
     Vec2d pos;
     uint8_t sym;
   };
+  
+  struct GameResultInfo
+  {
+    Time gameTime;
+    uint8_t winner;
+  };
+  
 public:
   GameModel();
   const uint8_t* board() const { return m_board; }
@@ -22,6 +30,7 @@ public:
   void reset();
   bool isDraw() const;
   void setCursorPosition(const Vec2d& pos);
+  GameResultInfo getResult() const { return { Time(clock()), m_cursor.sym }; }
   IView* keyEventsHandler(IView* sender, const int key) final;
   IView* mouseEventsHandler(IView* sender, const MouseRecord& mr) final;
   
