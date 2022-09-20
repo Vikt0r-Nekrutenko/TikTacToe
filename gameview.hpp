@@ -27,9 +27,13 @@ class StoryView : public IView
 {
   public:
   
-  StoryView(GameModel* model);
+  StoryView(GameModel* model, IView* sender);
   void show(Renderer& renderer) final;
   IView* keyEventsHandler(const int key) override;
+  
+  protected:
+  
+  IView* m_sender;
 };
 
 class CloseView : public IView
@@ -51,7 +55,7 @@ class MenuView : public IView
   
   protected:
   
-  std::vector<std::string> m_menu { "new game", "history", "exit" };
+  std::vector<std::string> m_menu { "new game", "story", "exit" };
   Vec2d m_cursor {0, 0};
   GameModel* m_gameModel;
   

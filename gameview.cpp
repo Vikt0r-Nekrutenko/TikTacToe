@@ -3,8 +3,8 @@
 
 Vec2d rendSize {0,0};
 
-StoryView::StoryView(GameModel* model)
-  : IView(model) {}
+StoryView::StoryView(GameModel* model, IView* sender)
+  : IView(model), m_sender(sender) {}
 
 void StoryView::show(Renderer& renderer)
 {
@@ -16,7 +16,7 @@ void StoryView::show(Renderer& renderer)
 
 IView* StoryView::keyEventsHandler(const int key)
 {
-  return new MenuView(static_cast<GameModel*>(m_model));
+  return m_sender;
 }
 
 GameView::GameView(GameModel* model, bool toResetModel)
@@ -93,7 +93,7 @@ IView* MenuView::menuSelectConfirm()
   switch(m_cursor.y)
   {
     case 0: return new GameView(m_gameModel, true);
-    case 1: return new StoryView(m_gameModel);
+    case 1: return new StoryView(m_gameModel, this);
     case 2: return new CloseView(m_gameModel);
   }
   return this;
@@ -111,7 +111,7 @@ IView* PauseMenuView::menuSelectConfirm()
   {
     case 0: return new GameView(m_gameModel, true);
     case 1: return new GameView(m_gameModel, false);
-    case 2: return new StoryView(m_gameModel);
+    case 2: return new StoryView(m_gameModel, this);
     case 3: return new CloseView(m_gameModel);
   }
   return this;
