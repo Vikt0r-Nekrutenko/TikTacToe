@@ -23,6 +23,14 @@ class GameView : public IView
   Sprite m_board = Sprite("sboard.spr");
 };
 
+class StoryView : public IView
+{
+  public:
+  
+  StoryView(GameModel* model);
+  void show(Renderer& renderer) final;
+};
+
 class CloseView : public IView
 {
   public:

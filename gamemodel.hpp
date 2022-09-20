@@ -4,6 +4,7 @@
 #include "vec2d.hpp"
 #include "imodel.hpp"
 #include "time.hpp"
+#include <string>
 
 using namespace stf;
 using namespace stf::smv;
@@ -30,11 +31,12 @@ public:
   void reset();
   bool isDraw() const;
   void setCursorPosition(const Vec2d& pos);
-  GameResultInfo getResult() const { return { Time(clock()), m_cursor.sym }; }
+  GameResultInfo getResult() const { return m_result; }
   IView* keyEventsHandler(IView* sender, const int key) final;
   IView* mouseEventsHandler(IView* sender, const MouseRecord& mr) final;
   
   private:
+    GameResultInfo m_result;
     Cursor m_cursor {{0,0}, 'x'};
     uint8_t m_board[9];
     

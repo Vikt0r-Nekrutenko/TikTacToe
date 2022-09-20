@@ -1,7 +1,8 @@
 #include "gamemodel.hpp"
 #include "gameview.hpp"
 
-GameModel::GameModel() 
+GameModel::GameModel()
+  : m_result{ Time(clock()), m_cursor.sym }
 { 
   reset();
 }

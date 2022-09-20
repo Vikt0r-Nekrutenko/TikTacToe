@@ -3,6 +3,17 @@
 
 Vec2d rendSize {0,0};
 
+StoryView::StoryView(GameModel* model)
+  : IView(model) {}
+
+void StoryView::show(Renderer& renderer)
+{
+  GameModel* mod = static_cast<GameModel*>(m_model);
+  const std::string s = mod->getResult().gameTime.asString() + std::string(" Player has won: ")+std::to_string(mod->cursor().sym);
+  Vec2d zerop = renderer.Size / 2 - Vec2d(s.length()/2, 0);
+  renderer.drawText(zerop, s.c_str());
+}
+
 GameView::GameView(GameModel* model, bool toResetModel)
   : IView(model), m_gameModel(model)
 {
