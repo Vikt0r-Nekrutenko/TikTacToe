@@ -14,6 +14,11 @@ void StoryView::show(Renderer& renderer)
   renderer.drawText(zerop, s.c_str());
 }
 
+IView* StoryView::keyEventsHandler(const int key)
+{
+  return new MenuView(static_cast<GameModel*>(m_model));
+}
+
 GameView::GameView(GameModel* model, bool toResetModel)
   : IView(model), m_gameModel(model)
 {
