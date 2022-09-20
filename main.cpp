@@ -4,6 +4,7 @@
 #include "sprite.hpp"
 #include "gamemodel.hpp"
 #include "gameview.hpp"
+#include <iostream>
 
 using namespace stf;
 using namespace stf::smv;

@@ -50,7 +50,7 @@ class MenuView : public IView
   
   protected:
   
-  std::vector<std::string> m_menu { "new game", "exit" };
+  std::vector<std::string> m_menu { "new game", "history", "exit" };
   Vec2d m_cursor {0, 0};
   GameModel* m_gameModel;
   

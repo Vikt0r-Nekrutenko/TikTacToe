@@ -2,7 +2,7 @@
 #include "gameview.hpp"
 
 GameModel::GameModel()
-  : m_result{ Time(clock()), m_cursor.sym }
+  : m_result{ Time(nullptr), m_cursor.sym }
 { 
   reset();
 }
@@ -19,8 +19,11 @@ IView* GameModel::put(IView* sender, Vec2d pos)
     if(m_board[3 * pos.y + pos.x] == ' ') {
       m_board[3 * pos.y + pos.x] = m_cursor.sym;
     
-      if(gameIsOver()) 
+      if(gameIsOver()) {
+        m_result.gameTime = Time(nullptr);
+        m_result.winner = m_cursor.sym;
         return new EndView(this);
+      }
       m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';
     }
   }
