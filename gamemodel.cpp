@@ -20,6 +20,9 @@ IView* GameModel::put(IView* sender, Vec2d pos)
       m_board[3 * pos.y + pos.x] = m_cursor.sym;
     
       if(gameIsOver()) {
+        m_story->gameTime = Time(nullptr);
+        m_story->winner = (int)m_cursor.sym;
+        m_story->save();
         return new EndView(this);
       }
       m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';

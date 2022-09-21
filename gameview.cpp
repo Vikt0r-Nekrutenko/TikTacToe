@@ -11,9 +11,18 @@ void StoryView::show(Renderer& renderer)
   GameModel* mod = static_cast<GameModel*>(m_model);
   const std::string s = Time(nullptr).asString() + std::string(" Player has won: \'s\'");
   Vec2d zerop = renderer.Size / 2 - Vec2d(s.length()/2, 0);
-  Model::QueryResult *qres = mod->getResult().all();
   
-  renderer.draw(zerop, "%s Player has won: \'%c\'", mod->getResult().gameTime.asString().c_str(), mod->cursor().sym);
+  try {
+    Model::QueryResult *qres = mod->getResult().all();
+    for(int64_t i : *qres) {
+        GameResultInfoModel* info = qres->get<GameResultInfoModel>(i);
+      renderer.draw(zerop, "%s Player has won: \'%c\'", info->gameTime().asString().c_str(), info->winner());
+    }
+  } catch(const std::string& ex) {
+    std::string s("There are no results here yet");
+    Vec2d p = renderer.Size / 2 - Vec2d(s.length() / 2, 0);
+    renderer.drawText(p, s.c_str());
+  }
 }
 
 IView* StoryView::keyEventsHandler(const int key)
