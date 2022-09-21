@@ -20,7 +20,6 @@ class GameSaveModel : public StackModel
   public:
   
   GameSaveModel(GameModel* model) : StackModel("ttt_saves.sdb"), m_model(model) {}
-  ~GameSaveModel();
   
   void save();
   void load();
