@@ -11,6 +11,8 @@ void StoryView::show(Renderer& renderer)
   GameModel* mod = static_cast<GameModel*>(m_model);
   const std::string s = Time(nullptr).asString() + std::string(" Player has won: \'s\'");
   Vec2d zerop = renderer.Size / 2 - Vec2d(s.length()/2, 0);
+  Model::QueryResult *qres = mod->getResult().all();
+  
   renderer.draw(zerop, "%s Player has won: \'%c\'", mod->getResult().gameTime.asString().c_str(), mod->cursor().sym);
 }
 
