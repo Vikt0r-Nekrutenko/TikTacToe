@@ -116,7 +116,11 @@ IView* MenuView::menuSelectConfirm()
   switch(m_cursor.y)
   {
     case 0: return new GameView(m_gameModel, true);
-    case 1: return new PauseMenuView(m_gameModel);
+    case 1: 
+      try {
+        m_gameModel->m_saves.load();
+        return new PauseMenuView(m_gameModel);
+      } catch(...) { return this; }
     case 2: return new StoryView(m_gameModel, this);
     case 3: return new CloseView(m_gameModel);
   }
@@ -127,6 +131,7 @@ PauseMenuView::PauseMenuView(GameModel* model)
   : MenuView(model)
 {
   m_menu.insert(m_menu.begin()+1, "continue");
+  m_menu.insert(m_menu.begin()+3, "save");
 }
 
 IView* PauseMenuView::menuSelectConfirm()
@@ -134,9 +139,19 @@ IView* PauseMenuView::menuSelectConfirm()
   switch(m_cursor.y)
   {
     case 0: return new GameView(m_gameModel, true);
-    case 1: return new GameView(m_gameModel, false);
-    case 2: return new StoryView(m_gameModel, this);
-    case 3: return new CloseView(m_gameModel);
+    case 1: 
+      try {
+        m_gameModel->m_saves.load();
+      } catch(...) { }
+      return this;
+    case 2: 
+      try {
+        m_gameModel->m_saves.save();
+      } catch(...) { }
+      return this;
+    case 3: return new GameView(m_gameModel, false);
+    case 4: return new StoryView(m_gameModel, this);
+    case 5: return new CloseView(m_gameModel);
   }
   return this;
 }
