@@ -13,17 +13,23 @@ using namespace stf;
 using namespace stf::smv;
 using namespace stf::sdb;
 
+class GameModel;
+
 class GameSaveModel : public StackModel 
 {
   public:
   
-  GameSaveModel() : StackModel("ttt_saves.sdb") {}
+  GameSaveModel(GameModel* model) : StackModel("ttt_saves.sdb"), m_model(model) {}
+  private:
   
   IntVecField board = IntVecField(this, 9);
   IntField xcursor = IntField(this);
   IntField ycursor = IntField(this);
   IntField player = IntField(this);
+  
+  GameModel* m_model;
 };
+
 
 class GameResultInfoModel : public Model
 {
@@ -46,7 +52,7 @@ class GameModel : public BaseModel
   };
   
 public:
-  GameModel(GameResultInfoModel* model, GameSaveModel* saves);
+  GameModel(GameResultInfoModel* model);
   const uint8_t* board() const { return m_board; }
   const Cursor& cursor() const { return m_cursor; }
 
@@ -58,7 +64,7 @@ public:
   IView* mouseEventsHandler(IView* sender, const MouseRecord& mr) final;
   
   private:
-    GameSaveModel* m_saves;
+    GameSaveModel m_saves = GameSaveModel(this);
     GameResultInfoModel* m_story;
     Cursor m_cursor {{0,0}, 'x'};
     uint8_t m_board[9];
@@ -66,6 +72,5 @@ public:
     bool gameIsOver() const;
     IView* put(IView* sender, Vec2d pos);
 };
-
 
 #endif // GAMEMODEL_HPP
