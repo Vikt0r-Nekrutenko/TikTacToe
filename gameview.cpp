@@ -17,14 +17,19 @@ void StoryView::show(Renderer& renderer)
   try {
     Model::QueryResult *qres = mod->getResult().all();
     int k = 0;
-    for(auto it = qres->rbegin(); it != qres->rend(); ++it) {
+    for(auto it = qres->begin(); it != qres->end(); ++it) {
       GameResultInfoModel* info = qres->get<GameResultInfoModel>(*it);
-      renderer.draw(zerop-Vec2d(0, k++ * 2), "%s Player has won: \'%c\'", info->gameTime().asString().c_str(), info->winner());
+      renderer.draw(zerop+Vec2d(0, k++ * 2), "%s Player has won: \'%c\'", info->gameTime().asString().c_str(), info->winner());
+    }
     
     renderer.drawNumber(statsp + m_stats.markers().at(0), (int)qres->size());
-    renderer.drawNumber(statsp + m_stats.markers().at(1), (int)info->xwins());
-    renderer.drawNumber(statsp + m_stats.markers().at(2), (int)info->owins());
-    }
+    
+    GameResultInfoModel* linfo = qres->get<GameResultInfoModel>(qres->front());
+    renderer.drawNumber(statsp + m_stats.markers().at(1), (int)linfo->xwins());
+    renderer.draw(statsp + m_stats.markers().at(3), "%d%c", int(double(linfo->xwins()) / (double)qres->size() * 100), '%');
+    
+    renderer.drawNumber(statsp + m_stats.markers().at(2), (int)linfo->owins());
+    renderer.draw(statsp + m_stats.markers().at(4), "%d%c", int(double(linfo->owins()) / double(qres->size()) * 100), '%');
   } catch(const std::string& ex) {
     std::string s("There are no results here yet");
     Vec2d p = renderer.Size / 2 - Vec2d(s.length() / 2, 0);
