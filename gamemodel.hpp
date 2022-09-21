@@ -20,6 +20,8 @@ class GameResultInfoModel : public Model
   
   DateTimeField gameTime = DateTimeField(this);
   IntField winner = IntField(this);
+  IntField owins = IntField(this);
+  IntField xwins = IntField(this);
 };
 
 class GameModel : public BaseModel

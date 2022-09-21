@@ -22,6 +22,10 @@ IView* GameModel::put(IView* sender, Vec2d pos)
       if(gameIsOver()) {
         m_story->gameTime = Time(nullptr);
         m_story->winner = (int)m_cursor.sym;
+        if(m_cursor.sym == 'x') 
+          m_story->xwins = m_story->xwins()+1;
+        else 
+          m_story->owins = m_story->owins()+1;
         m_story->save();
         return new EndView(this);
       }

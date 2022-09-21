@@ -19,7 +19,7 @@ void StoryView::show(Renderer& renderer)
     int k = 0;
     for(auto it = qres->rbegin(); it != qres->rend(); ++it) {
       GameResultInfoModel* info = qres->get<GameResultInfoModel>(*it);
-      renderer.draw(zerop-Vec2d(0, k++ * 2), "%s Player has won: \'%c\' %d", info->gameTime().asString().c_str(), info->winner(), qres->size());
+      renderer.draw(zerop-Vec2d(0, k++ * 2), "%s Player has won: \'%c\'", info->gameTime().asString().c_str(), info->winner());
     
     renderer.drawNumber(statsp + m_stats.markers().at(0), (int)qres->size());
     }
