@@ -11,7 +11,9 @@ using namespace stf::smv;
 
 class Game : public stf::Window
 {
-    GameModel model;
+    GameResultInfoModel story;
+  
+    GameModel model = GameModel(&story);
     MenuView menuView = MenuView(&model);
     GameView gameView = GameView(&model);
     IView* currentView = &menuView;

@@ -37,7 +37,7 @@ class GameModel : public BaseModel
   };
   
 public:
-  GameModel();
+  GameModel(GameResultInfoModel* model);
   const uint8_t* board() const { return m_board; }
   const Cursor& cursor() const { return m_cursor; }
 
@@ -49,7 +49,7 @@ public:
   IView* mouseEventsHandler(IView* sender, const MouseRecord& mr) final;
   
   private:
-    GameResultInfo m_result;
+    GameResultInfoModel* m_story;
     Cursor m_cursor {{0,0}, 'x'};
     uint8_t m_board[9];
     
