@@ -46,7 +46,7 @@ class GameModel : public BaseModel
   };
   
 public:
-  GameModel(GameResultInfoModel* model);
+  GameModel(GameResultInfoModel* model, GameSaveModel* saves);
   const uint8_t* board() const { return m_board; }
   const Cursor& cursor() const { return m_cursor; }
 
@@ -58,6 +58,7 @@ public:
   IView* mouseEventsHandler(IView* sender, const MouseRecord& mr) final;
   
   private:
+    GameSaveModel* m_saves;
     GameResultInfoModel* m_story;
     Cursor m_cursor {{0,0}, 'x'};
     uint8_t m_board[9];

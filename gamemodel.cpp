@@ -1,8 +1,8 @@
 #include "gamemodel.hpp"
 #include "gameview.hpp"
 
-GameModel::GameModel(GameResultInfoModel* model)
-  : m_story{ model }
+GameModel::GameModel(GameResultInfoModel* model, GameSaveModel* saves)
+  : m_saves{ saves }, m_story{ model }
 { 
   reset();
 }
