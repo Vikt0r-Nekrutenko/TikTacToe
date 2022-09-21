@@ -33,6 +33,7 @@ class StoryView : public IView
   
   protected:
   
+  Sprite m_stats;
   IView* m_sender;
 };
 

@@ -4,13 +4,15 @@
 Vec2d rendSize {0,0};
 
 StoryView::StoryView(GameModel* model, IView* sender)
-  : IView(model), m_sender(sender) {}
+  : IView(model), m_stats("stats.spr"), m_sender(sender) {}
 
 void StoryView::show(Renderer& renderer)
 {
   GameModel* mod = static_cast<GameModel*>(m_model);
   const std::string s = Time(nullptr).asString() + std::string(" Player has won: \'s\'");
   Vec2d zerop = renderer.Size / 2 - Vec2d(s.length()/2, 0);
+  Vec2d statsp = renderer.Size / 2 - Vec2d(m_stats.Size().x / 2, m_stats.Size().y*2);
+  m_stats.show(renderer, statsp);
   
   try {
     Model::QueryResult *qres = mod->getResult().all();
@@ -18,6 +20,8 @@ void StoryView::show(Renderer& renderer)
     for(auto it = qres->rbegin(); it != qres->rend(); ++it) {
       GameResultInfoModel* info = qres->get<GameResultInfoModel>(*it);
       renderer.draw(zerop-Vec2d(0, k++ * 2), "%s Player has won: \'%c\' %d", info->gameTime().asString().c_str(), info->winner(), qres->size());
+    
+    renderer.drawNumber(statsp + m_stats.markers().at(0), (int)qres->size());
     }
   } catch(const std::string& ex) {
     std::string s("There are no results here yet");
