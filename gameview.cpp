@@ -118,7 +118,7 @@ IView* MenuView::menuSelectConfirm()
     case 0: return new GameView(m_gameModel, true);
     case 1: 
       try {
-        m_gameModel->m_saves.load();
+        m_gameModel->saves.load();
         return new PauseMenuView(m_gameModel);
       } catch(...) { return this; }
     case 2: return new StoryView(m_gameModel, this);
@@ -142,12 +142,12 @@ IView* PauseMenuView::menuSelectConfirm()
     case 1: return new GameView(m_gameModel, false);
     case 2: 
       try {
-        m_gameModel->m_saves.load();
+        m_gameModel->saves.load();
       } catch(...) { }
       return this;
     case 3: 
       try {
-        m_gameModel->m_saves.save();
+        m_gameModel->saves.save();
       } catch(...) { }
       return this;
     case 4: return new StoryView(m_gameModel, this);
