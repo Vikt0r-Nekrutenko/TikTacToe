@@ -22,6 +22,8 @@ void StoryView::show(Renderer& renderer)
       renderer.draw(zerop-Vec2d(0, k++ * 2), "%s Player has won: \'%c\'", info->gameTime().asString().c_str(), info->winner());
     
     renderer.drawNumber(statsp + m_stats.markers().at(0), (int)qres->size());
+    renderer.drawNumber(statsp + m_stats.markers().at(1), (int)info->xwins());
+    renderer.drawNumber(statsp + m_stats.markers().at(2), (int)info->owins());
     }
   } catch(const std::string& ex) {
     std::string s("There are no results here yet");
