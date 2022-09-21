@@ -30,12 +30,6 @@ class GameModel : public BaseModel
     uint8_t sym;
   };
   
-  struct GameResultInfo
-  {
-    Time gameTime;
-    uint8_t winner;
-  };
-  
 public:
   GameModel(GameResultInfoModel* model);
   const uint8_t* board() const { return m_board; }
@@ -44,7 +38,7 @@ public:
   void reset();
   bool isDraw() const;
   void setCursorPosition(const Vec2d& pos);
-  GameResultInfo getResult() const { return m_result; }
+  GameResultInfoModel getResult() const { return m_story; }
   IView* keyEventsHandler(IView* sender, const int key) final;
   IView* mouseEventsHandler(IView* sender, const MouseRecord& mr) final;
   
