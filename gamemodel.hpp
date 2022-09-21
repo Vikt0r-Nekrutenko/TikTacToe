@@ -5,12 +5,25 @@
 #include "imodel.hpp"
 #include "time.hpp"
 #include "model.hpp"
+#include "stackmodel.hpp"
 #include "fields.hpp"
 #include <string>
 
 using namespace stf;
 using namespace stf::smv;
 using namespace stf::sdb;
+
+class GameSaveModel : public StackModel 
+{
+  public:
+  
+  GameSaveModel() : StackModel("ttt_saves.sdb") {}
+  
+  IntVecField board = IntVecField(this, 9);
+  IntField xcursor = IntField(this);
+  IntField ycursor = IntField(this);
+  IntField player = IntField(this);
+};
 
 class GameResultInfoModel : public Model
 {
