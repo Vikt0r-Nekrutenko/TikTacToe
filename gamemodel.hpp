@@ -15,11 +15,16 @@ using namespace stf::sdb;
 
 class GameModel;
 
-class GameSaveModel : public StackModel 
+class GameSaveModel : protected StackModel 
 {
   public:
   
   GameSaveModel(GameModel* model) : StackModel("ttt_saves.sdb"), m_model(model) {}
+  ~GameSaveModel();
+  
+  void save();
+  void load();
+  
   private:
   
   IntVecField board = IntVecField(this, 9);

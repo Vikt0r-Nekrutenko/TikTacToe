@@ -1,6 +1,15 @@
 #include "gamemodel.hpp"
 #include "gameview.hpp"
 
+void GameSaveModel::save()
+{
+  for(auto i = 0; i < 9; ++i)
+    board[i] = m_model->board()[i];
+  xcursor = m_model->cursor().pos.x;
+  ycursor = m_model->cursor().pos.y;
+  player  = m_model->cursor().sym;
+}
+
 GameModel::GameModel(GameResultInfoModel* model)
   : m_story{ model }
 { 
