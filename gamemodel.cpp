@@ -1,6 +1,11 @@
 #include "gamemodel.hpp"
 #include "gameview.hpp"
 
+GameSaveModel::~GameSaveModel()
+{
+  
+}
+
 void GameSaveModel::save()
 {
   for(auto i = 0; i < 9; ++i)

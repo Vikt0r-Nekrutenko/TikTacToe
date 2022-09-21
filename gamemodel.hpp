@@ -70,8 +70,8 @@ public:
   IView* keyEventsHandler(IView* sender, const int key) final;
   IView* mouseEventsHandler(IView* sender, const MouseRecord& mr) final;
   
-  private:
     GameSaveModel m_saves = GameSaveModel(this);
+  private:
     GameResultInfoModel* m_story;
     Cursor m_cursor {{0,0}, 'x'};
     uint8_t m_board[9];
