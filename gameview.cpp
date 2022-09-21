@@ -14,9 +14,10 @@ void StoryView::show(Renderer& renderer)
   
   try {
     Model::QueryResult *qres = mod->getResult().all();
-    for(int64_t i : *qres) {
-        GameResultInfoModel* info = qres->get<GameResultInfoModel>(i);
-      renderer.draw(zerop, "%s Player has won: \'%c\'", info->gameTime().asString().c_str(), info->winner());
+    int k = 0;
+    for(auto it = qres->rbegin(); it != qres->rend(); ++it) {
+      GameResultInfoModel* info = qres->get<GameResultInfoModel>(*it);
+      renderer.draw(zerop-Vec2d(0, k++ * 2), "%s Player has won: \'%c\' %d", info->gameTime().asString().c_str(), info->winner(), qres->size());
     }
   } catch(const std::string& ex) {
     std::string s("There are no results here yet");
