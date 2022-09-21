@@ -4,10 +4,23 @@
 #include "vec2d.hpp"
 #include "imodel.hpp"
 #include "time.hpp"
+#include "model.hpp"
+#include "fields.hpp"
 #include <string>
 
 using namespace stf;
 using namespace stf::smv;
+using namespace stf::sdb;
+
+class GameResultInfoModel : public Model
+{
+  public:
+  
+  GameResultInfoModel() : Model("ttt_scores.sdb") { }
+  
+  DateTimeField gameTime = DateTimeField(this);
+  IntField winner = IntField(this);
+};
 
 class GameModel : public BaseModel
 {
