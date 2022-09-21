@@ -15,7 +15,7 @@ using namespace stf::sdb;
 
 class GameModel;
 
-class GameSaveModel : protected StackModel 
+class GameSaveModel : public StackModel 
 {
   public:
   
@@ -50,6 +50,8 @@ class GameResultInfoModel : public Model
 
 class GameModel : public BaseModel
 {
+  friend class GameSaveModel;
+  
   struct Cursor
   {
     Vec2d pos;
