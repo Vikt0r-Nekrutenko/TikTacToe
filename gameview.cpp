@@ -18,18 +18,18 @@ void GameView::show(Renderer& renderer)
   m_board.show(renderer, true);
   
   Vec2d cursorPos = static_cast<GameModel*>(m_model)->cursor().pos;
-  auto cellInterpeter = [&](const Vec2d pos){
+  auto cell = [&](const Vec2d pos) -> const Vec2d {
     return pzero + m_board.markers().at(3 * pos.y + pos.x + 1);
   };
   
-  renderer.drawFrame(cellInterpeter(cursorPos) - Vec2d(1,0), Vec2d(3,1));
-  renderer.drawPixel(cellInterpeter({-1,0}), static_cast<GameModel*>(m_model)->cursor().sym);
+  renderer.drawFrame(cell(cursorPos) - Vec2d(1,0), Vec2d(3,1));
+  renderer.drawPixel(cell({-1,0}), static_cast<GameModel*>(m_model)->cursor().sym);
   
   for(int y = 0; y < 3; ++y) {
     for(int x = 0; x < 3; ++x) {
       uint8_t sym = static_cast<GameModel*>(m_model)->board()[3 * y + x];
       if(sym != ' ')
-          renderer.drawPixel(cellInterpeter({x,y}), sym);
+          renderer.drawPixel(cell({x,y}), sym);
     }
   }
 }
