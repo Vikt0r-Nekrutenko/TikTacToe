@@ -19,7 +19,7 @@ class StoryView : public IView
 
   protected:
 
-  Sprite m_stats;
+  Sprite m_stats = Sprite("sprs/stats.spr");
   IView* m_sender;
 };
 

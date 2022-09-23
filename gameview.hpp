@@ -19,7 +19,7 @@ class GameView : public IView
   
   private:
   
-  Sprite m_board = Sprite("sboard.spr");
+  Sprite m_board = Sprite("sprs/sboard.spr");
 };
 
 #endif // GAMEVIEW_HPP

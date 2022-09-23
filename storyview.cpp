@@ -2,7 +2,7 @@
 #include "gamemodel.hpp"
 
 StoryView::StoryView(GameModel* model, IView* sender)
-  : IView(model), m_stats("stats.spr"), m_sender(sender) {}
+  : IView(model), m_sender(sender) {}
 
 void StoryView::show(Renderer& renderer)
 {
