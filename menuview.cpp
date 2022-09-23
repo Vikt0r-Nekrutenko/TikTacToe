@@ -21,8 +21,8 @@ IView* MenuView::keyEventsHandler(const int key)
 {
   switch(key)
   {
-    case 'w': if(m_cursor > 0) --m_cursor; break;;
-    case 's': if(m_cursor < 3) ++m_cursor; break;
+    case 'w': if(m_cursor > 0) --m_cursor; else if(m_cursor == 0) m_cursor = 3; break;;
+    case 's': if(m_cursor < 3) ++m_cursor; else if(m_cursor == 3) m_cursor = 0; break;
     case ' ': return menuSelectConfirm();
   }
   return this;
