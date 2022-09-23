@@ -23,18 +23,4 @@ class GameView : public IView
   Sprite m_board = Sprite("sboard.spr");
 };
 
-class StoryView : public IView
-{
-  public:
-  
-  StoryView(GameModel* model, IView* sender);
-  void show(Renderer& renderer) final;
-  IView* keyEventsHandler(const int key) override;
-  
-  protected:
-  
-  Sprite m_stats;
-  IView* m_sender;
-};
-
 #endif // GAMEVIEW_HPP

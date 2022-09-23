@@ -8,14 +8,16 @@ HEADERS += \
         closeview.hpp \
         endview.hpp \
         menuview.hpp \
-        pausemenuview.hpp
+        pausemenuview.hpp \
+        storyview.hpp
 
 SOURCES += \
         *.cpp \
         closeview.cpp \
         endview.cpp \
         menuview.cpp \
-        pausemenuview.cpp
+        pausemenuview.cpp \
+        storyview.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../stf/release/ -lstf
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../stf/debug/ -lstf
