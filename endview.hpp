@@ -16,6 +16,10 @@ class EndView : public IView
   EndView(GameModel* model);
   void show(Renderer& renderer) final;
   IView* keyEventsHandler(const int key) final;
+
+  private:
+
+  Sprite m_end = Sprite("sprs/end.spr");
 };
 
 #endif // ENDVIEW_HPP

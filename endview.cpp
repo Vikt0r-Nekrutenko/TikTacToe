@@ -12,16 +12,8 @@ void EndView::show(Renderer& renderer)
     Vec2d p { renderer.Size / 2 - Vec2d(2, 0) };
     renderer.drawText(p, "DRAW!");
   } else {
-    int y = 0;
-    std::string s[] = { "Congratulations!", "Player", "Won!" };
-    for(auto& str : s) {
-      Vec2d p { renderer.Size / 2 - Vec2d(str.length() / 2, y) };
-      renderer.drawText(p, str.c_str());
-      if(str == s[1]) {
-        renderer.drawPixel(p + Vec2d(str.length()+1, 0), static_cast<GameModel*>(m_model)->cursor().sym);
-      }
-      y -= 2;
-    }
+    m_end.show(renderer, true);
+    renderer.drawPixel(renderer.Size / 2 - m_end.Size() / 2 + m_end.markers().at(0), static_cast<GameModel*>(m_model)->cursor().sym);
   }
 }
 

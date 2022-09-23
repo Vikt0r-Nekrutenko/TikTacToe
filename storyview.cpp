@@ -10,7 +10,7 @@ void StoryView::show(Renderer& renderer)
   const std::string s = Time(nullptr).asString() + std::string(" Player has won: \'s\'");
   Vec2d zerop = renderer.Size / 2 - Vec2d(s.length()/2, 0);
   Vec2d statsp = renderer.Size / 2 - Vec2d(m_stats.Size().x / 2, m_stats.Size().y*2);
-  m_stats.show(renderer, false, statsp);
+  m_stats.show(renderer, true, {0,0}, Vec2d(0, -m_stats.Size().y / 2));
 
   try {
     Model::QueryResult *qres = mod->getResult().all();
