@@ -37,22 +37,4 @@ class StoryView : public IView
   IView* m_sender;
 };
 
-class CloseView : public IView
-{
-  public:
-  
-  CloseView(GameModel* model);
-  void show(Renderer& renderer) final;
-  bool isContinue() const final;
-};
-
-class EndView : public IView
-{
-  public:
-  
-  EndView(GameModel* model);
-  void show(Renderer& renderer) final;
-  IView* keyEventsHandler(const int key) final;
-};
-
 #endif // GAMEVIEW_HPP

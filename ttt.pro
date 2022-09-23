@@ -5,11 +5,15 @@ CONFIG -= qt
 
 HEADERS += \
         *.hpp \
+        closeview.hpp \
+        endview.hpp \
         menuview.hpp \
         pausemenuview.hpp
 
 SOURCES += \
         *.cpp \
+        closeview.cpp \
+        endview.cpp \
         menuview.cpp \
         pausemenuview.cpp
 
