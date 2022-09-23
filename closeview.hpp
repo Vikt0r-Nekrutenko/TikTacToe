@@ -1,3 +1,4 @@
+#pragma once
 #ifndef CLOSEVIEW_HPP
 #define CLOSEVIEW_HPP
 

@@ -1,10 +1,7 @@
 #ifndef GAMEMODEL_HPP
 #define GAMEMODEL_HPP
 
-#include "vec2d.hpp"
 #include "imodel.hpp"
-#include "time.hpp"
-#include "model.hpp"
 #include "stackmodel.hpp"
 #include "fields.hpp"
 #include <string>

@@ -4,7 +4,8 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 HEADERS += \
-        *.hpp \
+        gamemodel.hpp \
+        gameview.hpp \
         closeview.hpp \
         endview.hpp \
         menuview.hpp \
@@ -12,12 +13,14 @@ HEADERS += \
         storyview.hpp
 
 SOURCES += \
-        *.cpp \
+        gamemodel.cpp \
+        gameview.cpp \
         closeview.cpp \
         endview.cpp \
         menuview.cpp \
         pausemenuview.cpp \
-        storyview.cpp
+        storyview.cpp \
+        main.cpp \
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../stf/release/ -lstf
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../stf/debug/ -lstf
