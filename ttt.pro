@@ -5,11 +5,13 @@ CONFIG -= qt
 
 HEADERS += \
         *.hpp \
-        menuview.hpp
+        menuview.hpp \
+        pausemenuview.hpp
 
 SOURCES += \
         *.cpp \
-        menuview.cpp
+        menuview.cpp \
+        pausemenuview.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../stf/release/ -lstf
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../stf/debug/ -lstf

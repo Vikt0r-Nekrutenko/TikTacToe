@@ -46,13 +46,6 @@ class CloseView : public IView
   bool isContinue() const final;
 };
 
-class PauseMenuView : public MenuView
-{
-  public:
-  PauseMenuView(GameModel* model);
-  IView* menuSelectConfirm() final;
-};
-
 class EndView : public IView
 {
   public:
