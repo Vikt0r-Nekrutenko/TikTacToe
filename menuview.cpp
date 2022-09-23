@@ -1,6 +1,9 @@
 #include "menuview.hpp"
 #include "gameview.hpp"
 #include "gamemodel.hpp"
+#include "pausemenuview.hpp"
+#include "storyview.hpp"
+#include "closeview.hpp"
 
 MenuView::MenuView(GameModel* model)
   : IView(model), m_gameModel(model) {}

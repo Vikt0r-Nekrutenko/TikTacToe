@@ -1,7 +1,6 @@
 #include "window.hpp"
-#include "iview.hpp"
 #include "gamemodel.hpp"
-#include "gameview.hpp"
+#include "menuview.hpp"
 #include <iostream>
 
 using namespace stf;
@@ -13,9 +12,7 @@ class Game : public stf::Window
 
     GameModel model = GameModel(&story);
     MenuView menuView = MenuView(&model);
-    GameView gameView = GameView(&model);
     IView* currentView = &menuView;
-    //bool isContinue = true;
 
   public:
 

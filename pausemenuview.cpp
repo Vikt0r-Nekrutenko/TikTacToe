@@ -1,5 +1,7 @@
 #include "pausemenuview.hpp"
 #include "gameview.hpp"
+#include "storyview.hpp"
+#include "closeview.hpp"
 #include "gamemodel.hpp"
 
 PauseMenuView::PauseMenuView(GameModel* model)

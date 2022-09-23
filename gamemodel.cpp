@@ -1,5 +1,6 @@
 #include "gamemodel.hpp"
-#include "gameview.hpp"
+#include "endview.hpp"
+#include "pausemenuview.hpp"
 
 void GameSaveModel::save()
 {
