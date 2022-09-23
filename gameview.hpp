@@ -19,7 +19,6 @@ class GameView : public IView
   
   private:
   
-  GameModel* m_gameModel;
   Sprite m_board = Sprite("sboard.spr");
 };
 
