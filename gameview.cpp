@@ -23,7 +23,8 @@ void GameView::show(Renderer& renderer)
   };
   
   renderer.drawFrame(cellInterpeter(cursorPos), Vec2d(3,1));
-  renderer.drawPixel(cellInterpeter({2,0})+Vec2d(2,-2), static_cast<GameModel*>(m_model)->cursor().sym);
+//  renderer.drawPixel(cellInterpeter({2,0})+Vec2d(2,-2), static_cast<GameModel*>(m_model)->cursor().sym);
+  renderer.drawPixel(pzero + m_board.markers().at(0), static_cast<GameModel*>(m_model)->cursor().sym);
   
   for(int y = 0; y < 3; ++y) {
     for(int x = 0; x < 3; ++x) {
