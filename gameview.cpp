@@ -1,7 +1,7 @@
 #include "gameview.hpp"
 #include "gamemodel.hpp"
 
-Vec2d rendSize {0,0};
+Vec2d pzero{0,0};
 
 GameView::GameView(GameModel* model, bool toResetModel)
   : IView(model)
@@ -13,8 +13,7 @@ GameView::GameView(GameModel* model, bool toResetModel)
 void GameView::show(Renderer& renderer)
 {
   IView::show(renderer);
-  rendSize = renderer.Size;
-  Vec2d pzero = renderer.Size / 2 - m_board.Size() / 2;
+  pzero = renderer.Size / 2 - m_board.Size() / 2;
   m_board.show(renderer, true);
   
   Vec2d cursorPos = static_cast<GameModel*>(m_model)->cursor().pos;
@@ -34,8 +33,7 @@ IView* GameView::mouseEventsHandler(const MouseRecord& mr)
 {
   Vec2d mp(mr.x, mr.y);
   Vec2d dif = (m_board.Size() + 2) / 3;
-  Vec2d rp = rendSize / 2.f - m_board.Size() / 2.f;
-  Vec2d pos = (mp - rp) / dif;
+  Vec2d pos = (mp - pzero) / dif;
   
   static_cast<GameModel*>(m_model)->setCursorPosition(pos);
   return m_model->mouseEventsHandler(this, mr);
