@@ -6,7 +6,9 @@
 #include "closeview.hpp"
 
 MenuView::MenuView(GameModel* model)
-  : IView(model) {}
+  : IView(model) {
+    m_menuItemsCount = m_smenu.markers().size() / 2;
+}
 
 void  MenuView::show(Renderer& renderer)
 {
@@ -21,8 +23,8 @@ IView* MenuView::keyEventsHandler(const int key)
 {
   switch(key)
   {
-    case 'w': if(m_cursor > 0) --m_cursor; else if(m_cursor == 0) m_cursor = 3; break;;
-    case 's': if(m_cursor < 3) ++m_cursor; else if(m_cursor == 3) m_cursor = 0; break;
+    case 'w': if(m_cursor > 0) --m_cursor; else if(m_cursor == 0) m_cursor = m_menuItemsCount - 1; break;;
+    case 's': if(m_cursor < m_menuItemsCount - 1) ++m_cursor; else if(m_cursor == m_menuItemsCount - 1) m_cursor = 0; break;
     case ' ': return menuSelectConfirm();
   }
   return this;

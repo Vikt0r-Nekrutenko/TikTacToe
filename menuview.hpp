@@ -14,17 +14,14 @@ class MenuView : public IView
   public:
 
   MenuView(GameModel* model);
-  void show(Renderer& renderer) final;
+  void show(Renderer& renderer) override;
   IView* keyEventsHandler(const int key) override;
 
   protected:
 
-  std::vector<std::string> m_menu { "new game", "load", "scores", "exit" };
-  int m_cursor = 0;
-
-  private:
-
   Sprite m_smenu = Sprite("sprs/menu.spr");
+  int m_cursor = 0;
+  int m_menuItemsCount;
 
   virtual IView* menuSelectConfirm();
 };

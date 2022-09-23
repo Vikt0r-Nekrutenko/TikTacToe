@@ -7,28 +7,28 @@
 PauseMenuView::PauseMenuView(GameModel* model)
   : MenuView(model)
 {
-  m_menu.insert(m_menu.begin()+1, "continue");
-  m_menu.insert(m_menu.begin()+3, "save");
+  m_smenu = Sprite("sprs/pause_menu.spr");
+  m_menuItemsCount = m_smenu.markers().size() / 2;
 }
 
 IView* PauseMenuView::menuSelectConfirm()
 {
   switch(m_cursor)
   {
-    case 0: return new GameView(m_gameModel, true);
-    case 1: return new GameView(m_gameModel, false);
+    case 0: return new GameView(static_cast<GameModel*>(m_model), true);
+    case 1: return new GameView(static_cast<GameModel*>(m_model), false);
     case 2:
       try {
-        m_gameModel->saves.load();
+        static_cast<GameModel*>(m_model)->saves.load();
       } catch(...) { }
       return this;
     case 3:
       try {
-        m_gameModel->saves.save();
+        static_cast<GameModel*>(m_model)->saves.save();
       } catch(...) { }
       return this;
-    case 4: return new StoryView(m_gameModel, this);
-    case 5: return new CloseView(m_gameModel);
+    case 4: return new StoryView(static_cast<GameModel*>(m_model), this);
+    case 5: return new CloseView(static_cast<GameModel*>(m_model));
   }
   return this;
 }
