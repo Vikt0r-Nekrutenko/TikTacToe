@@ -5,11 +5,7 @@
 #include "gamemodel.hpp"
 
 PauseMenuView::PauseMenuView(GameModel* model)
-  : MenuView(model)
-{
-  m_smenu = Sprite("sprs/pause_menu.spr");
-  m_menuItemsCount = m_smenu.markers().size() / 2;
-}
+  : MenuView(model, "sprs/pause_menu.spr") { }
 
 IView* PauseMenuView::menuSelectConfirm()
 {

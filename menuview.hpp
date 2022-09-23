@@ -19,7 +19,9 @@ class MenuView : public IView
 
   protected:
 
-  Sprite m_smenu = Sprite("sprs/menu.spr");
+  MenuView(GameModel* model, const char* sprite);
+
+  Sprite m_smenu;
   int m_cursor = 0;
   int m_menuItemsCount;
 

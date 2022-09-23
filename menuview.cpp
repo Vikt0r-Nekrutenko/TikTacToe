@@ -6,7 +6,7 @@
 #include "closeview.hpp"
 
 MenuView::MenuView(GameModel* model)
-  : IView(model) {
+  : IView(model), m_smenu(Sprite("sprs/menu.spr")) {
     m_menuItemsCount = m_smenu.markers().size() / 2;
 }
 
@@ -28,6 +28,12 @@ IView* MenuView::keyEventsHandler(const int key)
     case ' ': return menuSelectConfirm();
   }
   return this;
+}
+
+MenuView::MenuView(GameModel *model, const char *sprite)
+    : IView(model), m_smenu(Sprite(sprite))
+{
+    m_menuItemsCount = m_smenu.markers().size() / 2;
 }
 
 IView* MenuView::menuSelectConfirm()
