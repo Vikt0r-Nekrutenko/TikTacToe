@@ -46,23 +46,6 @@ class CloseView : public IView
   bool isContinue() const final;
 };
 
-class MenuView : public IView
-{
-  public:
-  
-  MenuView(GameModel* model);
-  void show(Renderer& renderer) final;
-  IView* keyEventsHandler(const int key) override;
-  
-  protected:
-  
-  std::vector<std::string> m_menu { "new game", "load", "scores", "exit" };
-  Vec2d m_cursor {0, 0};
-  GameModel* m_gameModel;
-  
-  virtual IView* menuSelectConfirm(); 
-};
-
 class PauseMenuView : public MenuView
 {
   public:
