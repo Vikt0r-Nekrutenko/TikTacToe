@@ -1,7 +1,5 @@
 #include "window.hpp"
-#include "imodel.hpp"
 #include "iview.hpp"
-#include "sprite.hpp"
 #include "gamemodel.hpp"
 #include "gameview.hpp"
 #include <iostream>
