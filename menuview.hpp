@@ -19,8 +19,9 @@ class MenuView : public IView
 
   protected:
 
+  Sprite m_smenu = Sprite("sprs/menu.spr");
   std::vector<std::string> m_menu { "new game", "load", "scores", "exit" };
-  Vec2d m_cursor {0, 0};
+  int m_cursor = 0;
   GameModel* m_gameModel;
 
   virtual IView* menuSelectConfirm();

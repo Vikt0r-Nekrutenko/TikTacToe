@@ -13,7 +13,7 @@ PauseMenuView::PauseMenuView(GameModel* model)
 
 IView* PauseMenuView::menuSelectConfirm()
 {
-  switch(m_cursor.y)
+  switch(m_cursor)
   {
     case 0: return new GameView(m_gameModel, true);
     case 1: return new GameView(m_gameModel, false);

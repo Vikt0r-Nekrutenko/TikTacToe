@@ -11,22 +11,18 @@ MenuView::MenuView(GameModel* model)
 void  MenuView::show(Renderer& renderer)
 {
   IView::show(renderer);
-  Vec2d pzero = renderer.Size / 2;
-
-  int off = 0;
-  for(auto& str : m_menu) {
-    renderer.drawText(pzero + Vec2d(-str.length() / 2, off), str.c_str());
-    off += 2;
-  }
-  renderer.drawPixel(pzero + Vec2d(-2 - m_menu.at(m_cursor.y).length() / 2, m_cursor.y * 2), '>');
+  Vec2d pzero = renderer.Size / 2 - m_smenu.Size() / 2;
+  m_smenu.show(renderer, true);
+  renderer.drawPixel(pzero + m_smenu.markers().at(m_cursor * 2), '>');
+  renderer.drawPixel(pzero + m_smenu.markers().at(m_cursor * 2 + 1), '<');
 }
 
 IView* MenuView::keyEventsHandler(const int key)
 {
   switch(key)
   {
-    case 'w': if(m_cursor.y > 0) --m_cursor.y; break;;
-    case 's': if(m_cursor.y < m_menu.size()-1) ++m_cursor.y; break;
+    case 'w': if(m_cursor > 0) --m_cursor; break;;
+    case 's': if(m_cursor < 3) ++m_cursor; break;
     case ' ': return menuSelectConfirm();
   }
   return this;
@@ -34,7 +30,7 @@ IView* MenuView::keyEventsHandler(const int key)
 
 IView* MenuView::menuSelectConfirm()
 {
-  switch(m_cursor.y)
+  switch(m_cursor)
   {
     case 0: return new GameView(m_gameModel, true);
     case 1:
