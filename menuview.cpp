@@ -6,7 +6,7 @@
 #include "closeview.hpp"
 
 MenuView::MenuView(GameModel* model)
-  : IView(model), m_gameModel(model) {}
+  : IView(model) {}
 
 void  MenuView::show(Renderer& renderer)
 {
@@ -32,14 +32,14 @@ IView* MenuView::menuSelectConfirm()
 {
   switch(m_cursor)
   {
-    case 0: return new GameView(m_gameModel, true);
+    case 0: return new GameView(static_cast<GameModel*>(m_model), true);
     case 1:
       try {
-        m_gameModel->saves.load();
-        return new PauseMenuView(m_gameModel);
+        static_cast<GameModel*>(m_model)->saves.load();
+        return new PauseMenuView(static_cast<GameModel*>(m_model));
       } catch(...) { return this; }
-    case 2: return new StoryView(m_gameModel, this);
-    case 3: return new CloseView(m_gameModel);
+    case 2: return new StoryView(static_cast<GameModel*>(m_model), this);
+    case 3: return new CloseView(static_cast<GameModel*>(m_model));
   }
   return this;
 }
