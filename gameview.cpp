@@ -15,7 +15,7 @@ void GameView::show(Renderer& renderer)
   IView::show(renderer);
   rendSize = renderer.Size;
   Vec2d pzero = renderer.Size / 2 - m_board.Size() / 2;
-  m_board.show(renderer, pzero);
+  m_board.show(renderer, true);
   
   Vec2d cursorPos = static_cast<GameModel*>(m_model)->cursor().pos;
   auto cellInterpeter = [&](const Vec2d pos){
