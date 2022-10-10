@@ -36,6 +36,11 @@ void GameModel::reset()
   m_cursor = GameModel::Cursor{{0,0}, 'x'};
 }
 
+bool GameModel::putIsPossible(const Vec2d& pos) const
+{
+  return m_board[3 * pos.y + pos.x] == ' ';
+}
+
 IView* GameModel::put(IView* sender, Vec2d pos)
 {
   {

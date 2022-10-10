@@ -65,6 +65,7 @@ public:
   GameResultInfoModel& getResult() { return *m_story; }
   IView* keyEventsHandler(IView* sender, const int key) final;
   IView* mouseEventsHandler(IView* sender, const MouseRecord& mr) final;
+  bool putIsPossible(const Vec2d& pos) const;
   
     GameSaveModel saves = GameSaveModel(this);
   private:
