@@ -47,14 +47,16 @@ IView* GameModel::put(IView* sender, Vec2d pos)
     if(m_board[3 * pos.y + pos.x] == ' ') {
       m_board[3 * pos.y + pos.x] = m_cursor.sym;
       
-      if(root->isMoveExist(pos) == root) {
+      Node *mv = root->isMoveExist(pos);
+      if(mv == root) {
         root->next.push_back(new Node(root));
         root = root.next.back();
         root->player = m_cursor.sym;
         root->move = pos;
         std::memcpy(root->board, m_board, sizeof(root->board));
+      } else {
+        root = mv;
       }
-      
       if(gameIsOver()) {
         m_story->gameTime = Time(nullptr);
         m_story->winner = (int)m_cursor.sym;
