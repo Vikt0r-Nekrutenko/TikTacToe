@@ -46,7 +46,11 @@ IView* GameModel::put(IView* sender, Vec2d pos)
   {
     if(m_board[3 * pos.y + pos.x] == ' ') {
       m_board[3 * pos.y + pos.x] = m_cursor.sym;
-    
+      
+      root->player = m_cursor.sym;
+      root->move = pos;
+      std::memcpy(root->board, board);
+      
       if(gameIsOver()) {
         m_story->gameTime = Time(nullptr);
         m_story->winner = (int)m_cursor.sym;
