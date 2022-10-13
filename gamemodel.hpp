@@ -48,7 +48,7 @@ class Node
 {
   public:
   Node(Node *prev) : previous(prev) { }
-  Node* isMoveExist(const Vec2d& mv) const
+  Node* isMoveExist(const Vec2d& mv)
   {
     for(auto m : next) {
       if(m->move == mv) {

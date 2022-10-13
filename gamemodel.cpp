@@ -50,7 +50,7 @@ IView* GameModel::put(IView* sender, Vec2d pos)
       Node *mv = root->isMoveExist(pos);
       if(mv == root) {
         root->next.push_back(new Node(root));
-        root = root.next.back();
+        root = root->next.back();
         root->player = m_cursor.sym;
         root->move = pos;
         std::memcpy(root->board, m_board, sizeof(root->board));
