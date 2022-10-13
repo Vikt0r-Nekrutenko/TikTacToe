@@ -27,6 +27,9 @@ void GameView::show(Renderer& renderer)
   for(int i = 0; i < 9; ++i) {
     renderer.drawPixel(pzero + m_board.markers().at(i + 1), static_cast<GameModel*>(m_model)->board()[i]);
   }
+  for(int i = 0; i < 9; ++i) {
+    renderer.drawPixel(Vec2d(0,2) + m_board.markers().at(i + 1), static_cast<GameModel*>(m_model)->root->board[i]);
+  }
 }
 
 IView* GameView::mouseEventsHandler(const MouseRecord& mr)
