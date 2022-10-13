@@ -49,7 +49,7 @@ IView* GameModel::put(IView* sender, Vec2d pos)
       
       root->player = m_cursor.sym;
       root->move = pos;
-      std::memcpy(root->board, board);
+      std::memcpy(root->board, m_board, sizeof(root->board));
       
       if(gameIsOver()) {
         m_story->gameTime = Time(nullptr);
