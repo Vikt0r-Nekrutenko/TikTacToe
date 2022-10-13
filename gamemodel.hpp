@@ -44,6 +44,19 @@ class GameResultInfoModel : public Model
   IntField xwins = IntField(this);
 };
 
+class Node
+{
+  public:
+  Node(Node *prev) : previous(prev) { }
+  
+  Node *previous = nullptr;
+  std::vector<Node*> next;
+  
+  uint8_t board[9] { 0,0,0, 0,0,0, 0,0,0};
+  stf::Vec2d move {-1, -1};
+  uint8_t player {'o'};
+};
+
 class GameModel : public BaseModel
 {
   friend class GameSaveModel;
@@ -68,6 +81,7 @@ public:
   bool putIsPossible(const Vec2d& pos) const;
   
     GameSaveModel saves = GameSaveModel(this);
+    Node *root = new Node(nullptr);
   private:
     GameResultInfoModel* m_story;
     Cursor m_cursor {{0,0}, 'x'};
