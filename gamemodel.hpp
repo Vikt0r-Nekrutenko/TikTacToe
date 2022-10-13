@@ -48,6 +48,15 @@ class Node
 {
   public:
   Node(Node *prev) : previous(prev) { }
+  Node* isMoveExist(const Vec2d& mv) const
+  {
+    for(auto m : next) {
+      if(m->move == mv) {
+        return m;
+      }
+    }
+    return this;
+  }
   
   Node *previous = nullptr;
   std::vector<Node*> next;
