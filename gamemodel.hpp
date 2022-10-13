@@ -91,6 +91,8 @@ public:
   
     GameSaveModel saves = GameSaveModel(this);
     Node *root = new Node(nullptr);
+    Node *main = root;
+
   private:
     GameResultInfoModel* m_story;
     Cursor m_cursor {{0,0}, 'x'};

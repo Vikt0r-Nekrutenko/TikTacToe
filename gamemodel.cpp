@@ -68,6 +68,7 @@ IView* GameModel::put(IView* sender, Vec2d pos)
           m_story->owins = m_story->owins()+1;
         }
         m_story->save();
+        root = main;
         return new EndView(this);
       }
       m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';
