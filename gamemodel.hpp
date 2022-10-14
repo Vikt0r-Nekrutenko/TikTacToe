@@ -57,12 +57,22 @@ class Node
     }
     return this;
   }
+  void backpropagation(uint8_t winner)
+  {
+    if(player == winner)
+      ++wins;
+    ++games;
+    if(previous != nullptr)
+      previous->backpropagation(winner);
+  }
   
   Node *previous = nullptr;
   std::vector<Node*> next;
   
   uint8_t board[9] { 0,0,0, 0,0,0, 0,0,0};
   stf::Vec2d move {-1, -1};
+  uint16_t wins = 0u;
+  uint16_t games = 0u;
   uint8_t player {'o'};
 };
 
