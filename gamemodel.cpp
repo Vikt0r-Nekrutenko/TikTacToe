@@ -49,7 +49,7 @@ IView* GameModel::put(IView* sender, Vec2d pos)
       m_story->xwins = m_story->xwins() + wins.x;
       m_story->owins = m_story->owins() + wins.y;
       m_story->winner = winner;
-    }
+    };
     
     if(m_board[3 * pos.y + pos.x] == ' ') {
       m_board[3 * pos.y + pos.x] = m_cursor.sym;

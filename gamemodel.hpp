@@ -61,7 +61,7 @@ class Node
     // wins += 0.5;
     ++games;
     if(previous != nullptr)
-      previous->backpropagation(winner);
+      previous->backpropagation();
   }
   void backpropagation(uint8_t winner)
   {
