@@ -68,6 +68,7 @@ IView* GameModel::put(IView* sender, Vec2d pos)
           m_story->owins = m_story->owins()+1;
         }
         m_story->save();
+        root->backpropagation(root-player);
         root = main;
         return new EndView(this);
       }
