@@ -33,7 +33,7 @@ void GameView::show(Renderer& renderer)
     //for(int i = 0; i < 9; ++i) {
     //  renderer.drawPixel(Vec2d(0,m_board.Size().y * j + 1) + m_board.markers().at(i + 1), static_cast<GameModel*>(m_model)->root->board[i]);
     //}
-    renderer.draw(Vec2d(0,j++), "%d:%d", node->move.x, node->move.y);
+    renderer.draw(Vec2d(0,j++), "%c | %d:%d | %d %d", node->player, node->move.x, node->move.y, node->wins, node->games);
     ++j;
   }
 }
