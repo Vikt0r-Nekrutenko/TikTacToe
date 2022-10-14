@@ -44,6 +44,13 @@ bool GameModel::putIsPossible(const Vec2d& pos) const
 IView* GameModel::put(IView* sender, Vec2d pos)
 {
   {
+    auto gameOverHandler = [&](const Time& t, int winner, const Vec2d& wins){
+      m_story->gameTime = t;
+      m_story->xwins = m_story->xwins() + wins.x;
+      m_story->owins = m_story->owins() + wins.y;
+      m_story->winner = winner;
+    }
+    
     if(m_board[3 * pos.y + pos.x] == ' ') {
       m_board[3 * pos.y + pos.x] = m_cursor.sym;
       
@@ -58,24 +65,20 @@ IView* GameModel::put(IView* sender, Vec2d pos)
         root = mv;
       }
       if(gameIsOver()) {
-        m_story->gameTime = Time(nullptr);
-        m_story->winner = (int)m_cursor.sym;
         if(m_cursor.sym == 'x') {
-          m_story->xwins = m_story->xwins()+1;
-          m_story->owins = m_story->owins();
+          gameOverHandler(Time(nullptr), 'x', {1,0});
         } else {
-          m_story->xwins = m_story->xwins();
-          m_story->owins = m_story->owins()+1;
+          gameOverHandler(Time(nullptr), 'o', {0,1});
         }
         m_story->save();
         root->backpropagation(root->player);
         root = main;
         return new EndView(this);
       } else if (isDraw()) {
-        m_story->gameTime = Time(nullptr);
-        m_story->xwins = m_story->xwins();
-        m_story->owins = m_story->owins();
-        m_story->winner = 0;
+        gameOverHandler(Time(nullptr), 0, {0,0});
+        m_story->save();
+        root = main;
+        return new EndView(this);
       }
       m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';
     }
