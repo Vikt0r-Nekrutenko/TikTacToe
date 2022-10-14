@@ -57,6 +57,12 @@ class Node
     }
     return this;
   }
+  void backpropagation() {
+    // wins += 0.5;
+    ++games;
+    if(previous != nullptr)
+      previous->backpropagation(winner);
+  }
   void backpropagation(uint8_t winner)
   {
     if(player == winner)
