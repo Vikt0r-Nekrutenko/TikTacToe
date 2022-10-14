@@ -68,9 +68,14 @@ IView* GameModel::put(IView* sender, Vec2d pos)
           m_story->owins = m_story->owins()+1;
         }
         m_story->save();
-        root->backpropagation(root-player);
+        root->backpropagation(root->player);
         root = main;
         return new EndView(this);
+      } else if (isDraw()) {
+        m_story->gameTime = Time(nullptr);
+        m_story->xwins = m_story->xwins();
+        m_story->owins = m_story->owins();
+        m_story->winner = 0;
       }
       m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';
     }
@@ -131,5 +136,5 @@ bool GameModel::gameIsOver() const
       return true;
     }
   }
-  return isDraw();
+  return false;
 }
