@@ -151,6 +151,15 @@ void GameModel::saveTree() const
   file.close();
 }
 
+void GameModel::loadTree()
+{
+  std::ofstream file("tree.txt");
+  if(file.is_open())
+    root->load(file);
+  file.close();
+  root = main;
+}
+
 void Node::save(std::ofstream& file) const
 {
   file << player << " " << 

@@ -108,6 +108,7 @@ public:
   IView* mouseEventsHandler(IView* sender, const MouseRecord& mr) final;
   bool putIsPossible(const Vec2d& pos) const;
   void saveTree() const;
+  void loadTree();
   
     GameSaveModel saves = GameSaveModel(this);
     Node *root = new Node(nullptr);
