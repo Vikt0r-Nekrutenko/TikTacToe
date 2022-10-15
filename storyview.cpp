@@ -17,7 +17,10 @@ void StoryView::show(Renderer& renderer)
     int k = 0;
     for(auto it = qres->begin(); it != qres->end(); ++it) {
       GameResultInfoModel* info = qres->get<GameResultInfoModel>(*it);
-      renderer.draw(zerop+Vec2d(0, k++ * 2), "%s Player has won: \'%c\'", info->gameTime().asString().c_str(), info->winner());
+      if(info->winner() != 'd')
+        renderer.draw(zerop+Vec2d(0, k++ * 2), "%s Player has won: \'%c\'", info->gameTime().asString().c_str(), info->winner());
+      else
+        renderer.draw(zerop+Vec2d(0, k++ * 2), "%s The game was played to a draw.", info->gameTime().asString().c_str());
     }
 
     renderer.drawNumber(statsp + m_stats.markers().at(0), (int)qres->size());
