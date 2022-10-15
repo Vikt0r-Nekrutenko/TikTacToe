@@ -168,3 +168,20 @@ void Node::save(std::ofstream& file) const
     n->save(file);
   }
 }
+
+void Node::load(std::ifstream& file)
+{
+  size_t next_c = 0;
+  file >> player >> move.x >> move.y >> wins >> games;
+  
+  for(auto &i : board) {
+    file >> i;
+  }
+  
+  file >> next_c;
+  
+  for(size_t i = 0; i < next_c; ++i) {
+    next.push_back(new Node(this));
+    next.back()->load(file);
+  }
+}
