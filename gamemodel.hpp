@@ -73,7 +73,7 @@ class Node
   }
   
   void save(std::ofstream& file) const;
-  void Node::load(std::ifstream& file)
+  void load(std::ifstream& file);
   
   Node *previous = nullptr;
   std::vector<Node*> next;

@@ -153,7 +153,7 @@ void GameModel::saveTree() const
 
 void GameModel::loadTree()
 {
-  std::ofstream file("tree.txt");
+  std::ifstream file("tree.txt");
   if(file.is_open())
     root->load(file);
   file.close();
