@@ -1,6 +1,7 @@
 #include "gamemodel.hpp"
 #include "endview.hpp"
 #include "pausemenuview.hpp"
+#include <fstream>
 
 void GameSaveModel::save()
 {
@@ -142,3 +143,29 @@ bool GameModel::gameIsOver() const
   }
   return false;
 }
+
+void GameModel::saveTree() const
+{
+  std::ofstream file("tree.txt");
+  main->save(file);
+  file.close();
+}
+
+void Node::save(std::ofstream& file) const
+  {
+    file << player << " " << 
+            move.x << " " << 
+            move.y << " " << 
+            wins << " " << 
+            games << " ";
+    for(uint8_t i : board) {
+      file << (int)i << " ";
+    }
+    file << next.size();
+    file << std::endl;
+    
+    for(auto n : next) {
+      n->save(file);
+    }
+  }
+  

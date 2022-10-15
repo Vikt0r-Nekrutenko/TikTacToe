@@ -72,6 +72,8 @@ class Node
       previous->backpropagation(winner);
   }
   
+  void save(std::ofstream& file) const;
+  
   Node *previous = nullptr;
   std::vector<Node*> next;
   
@@ -104,6 +106,7 @@ public:
   IView* keyEventsHandler(IView* sender, const int key) final;
   IView* mouseEventsHandler(IView* sender, const MouseRecord& mr) final;
   bool putIsPossible(const Vec2d& pos) const;
+  void saveTree() const;
   
     GameSaveModel saves = GameSaveModel(this);
     Node *root = new Node(nullptr);
