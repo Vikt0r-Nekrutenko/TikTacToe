@@ -30,17 +30,18 @@ GameModel::GameModel(GameResultInfoModel* model)
 { 
   reset();
   m_story->load(m_story->header().size - 1);
+  loadTree();
 }
 
 void GameModel::reset()
 {
-  memset(m_board, ' ', 9);
+  memset(m_board, 'e', 9);
   m_cursor = GameModel::Cursor{{0,0}, 'x'};
 }
 
 bool GameModel::putIsPossible(const Vec2d& pos) const
 {
-  return m_board[3 * pos.y + pos.x] == ' ';
+  return m_board[3 * pos.y + pos.x] == 'e';
 }
 
 IView* GameModel::put(IView* sender, Vec2d pos)
@@ -53,7 +54,7 @@ IView* GameModel::put(IView* sender, Vec2d pos)
       m_story->winner = winner;
     };
     
-    if(m_board[3 * pos.y + pos.x] == ' ') {
+    if(m_board[3 * pos.y + pos.x] == 'e') {
       m_board[3 * pos.y + pos.x] = m_cursor.sym;
       
       Node *mv = root->isMoveExist(pos);
@@ -121,7 +122,7 @@ IView* GameModel::keyEventsHandler(IView* sender, const int key)
 bool GameModel::isDraw() const
 {
   for(uint8_t cell : m_board) {
-    if(cell == ' ')
+    if(cell == 'e')
       return false;
   }
   return true;
@@ -130,7 +131,7 @@ bool GameModel::isDraw() const
 bool GameModel::gameIsOver() const
 {
   auto winCheck = [&](int x1, int y1, int x2, int y2, int x3, int y3) {
-    return m_board[3 * y1 + x1] != ' ' && 
+    return m_board[3 * y1 + x1] != 'e' && 
       (m_board[3 * y1 + x1] == m_board[3 * y2 + x2] && m_board[3 * y2 + x2] == m_board[3 * y3 + x3]);
   };
   
@@ -155,7 +156,7 @@ void GameModel::loadTree()
 {
   std::ifstream file("tree.txt");
   if(file.is_open())
-    root->load(file);
+    root->load(file, nullptr);
   file.close();
   root = main;
 }
@@ -168,7 +169,7 @@ void Node::save(std::ofstream& file) const
           wins << " " << 
           games << " ";
   for(uint8_t i : board) {
-    file << (int)i << " ";
+    file << i << " ";
   }
   file << next.size();
   file << std::endl;
@@ -178,19 +179,16 @@ void Node::save(std::ofstream& file) const
   }
 }
 
-void Node::load(std::ifstream& file)
+void Node::load(std::ifstream& file, Node* prev)
 {
   size_t next_c = 0;
   file >> player >> move.x >> move.y >> wins >> games;
   
-  for(auto &i : board) {
-    file >> i;
-  }
-  
+  for(uint8_t& i : board) file >> i;
   file >> next_c;
   
   for(size_t i = 0; i < next_c; ++i) {
-    next.push_back(new Node(this));
-    next.back()->load(file);
+    next.push_back(new Node(prev));
+    next.back()->load(file, next.back());
   }
 }

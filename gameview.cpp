@@ -25,7 +25,7 @@ void GameView::show(Renderer& renderer)
   renderer.drawPixel(cell({-1,0}), static_cast<GameModel*>(m_model)->cursor().sym);
   
   for(int i = 0; i < 9; ++i) {
-    renderer.drawPixel(pzero + m_board.markers().at(i + 1), static_cast<GameModel*>(m_model)->board()[i]);
+    renderer.drawPixel(pzero + m_board.markers().at(i + 1), static_cast<GameModel*>(m_model)->board()[i] != 'e' ? static_cast<GameModel*>(m_model)->board()[i] : ' ');
   }
   int j = 2;
   for(auto node : static_cast<GameModel*>(m_model)->root->next)

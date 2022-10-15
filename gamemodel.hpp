@@ -47,7 +47,7 @@ class GameResultInfoModel : public Model
 class Node
 {
   public:
-  Node(Node *prev) : previous(prev) { }
+  Node(Node *prev) : previous(prev) { memset(board, 'e', 9); }
   Node* isMoveExist(const Vec2d& mv)
   {
     for(auto m : next) {
@@ -73,12 +73,12 @@ class Node
   }
   
   void save(std::ofstream& file) const;
-  void load(std::ifstream& file);
+  void load(std::ifstream& file, Node* prev);
   
   Node *previous = nullptr;
   std::vector<Node*> next;
   
-  uint8_t board[9] { 0,0,0, 0,0,0, 0,0,0};
+  uint8_t board[9];
   stf::Vec2d move {-1, -1};
   uint16_t wins = 0u;
   uint16_t games = 0u;
