@@ -28,6 +28,7 @@ GameModel::GameModel(GameResultInfoModel* model)
   : m_story{ model }
 { 
   reset();
+  m_story->load(m_story->header().size - 1);
 }
 
 void GameModel::reset()
@@ -75,7 +76,7 @@ IView* GameModel::put(IView* sender, Vec2d pos)
         root = main;
         return new EndView(this);
       } else if (isDraw()) {
-        gameOverHandler(Time(nullptr), 0, {0,0});
+        gameOverHandler(Time(nullptr), 'd', {0,0});
         m_story->save();
         root = main;
         return new EndView(this);
