@@ -16,6 +16,7 @@ class EndView : public IView
   EndView(GameModel* model);
   void show(Renderer& renderer) final;
   IView* keyEventsHandler(const int key) final;
+  IView* update(const float dt) override { return this; }
 
   private:
 

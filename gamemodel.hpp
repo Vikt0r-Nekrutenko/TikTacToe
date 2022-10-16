@@ -104,6 +104,7 @@ public:
   bool isDraw() const;
   void setCursorPosition(const Vec2d& pos);
   GameResultInfoModel& getResult() { return *m_story; }
+  IView* update(IView* sender, const float dt) final;
   IView* keyEventsHandler(IView* sender, const int key) final;
   IView* mouseEventsHandler(IView* sender, const MouseRecord& mr) final;
   bool putIsPossible(const Vec2d& pos) const;

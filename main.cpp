@@ -13,12 +13,21 @@ class Game : public stf::Window
     GameModel model = GameModel(&story);
     MenuView menuView = MenuView(&model);
     IView* currentView = &menuView;
+    int iter = 20000;
 
   public:
 
   bool onUpdate(const float dt)
     {
-    currentView->show(renderer);
+    currentView = currentView->update(dt);
+    if(iter--) { keyEvents(' ');
+      renderer.draw({0,1}, "%d", iter);
+    } else {
+      currentView->show(renderer);
+    }
+    if(iter <= 17919) {
+      currentView->show(renderer);
+    }
     return currentView->isContinue();
     }
     void keyEvents(const int key)
@@ -33,5 +42,5 @@ class Game : public stf::Window
 
 int main()
 {
-  return Game().run();
+  try{return Game().run();}catch(float t){printf("%f\n",t);}
 }

@@ -33,10 +33,34 @@ GameModel::GameModel(GameResultInfoModel* model)
   loadTree();
 }
 
+float t = 0;
+std::vector<Vec2d> moves = { {0,0}, {1,0}, {1,1}, {2,1}, {2,2} };
+std::vector<Vec2d>::iterator it = moves.begin();
+Vec2d mov = Vec2d(rand()%3, rand()%3);
+
 void GameModel::reset()
 {
   memset(m_board, 'e', 9);
   m_cursor = GameModel::Cursor{{0,0}, 'x'};
+  it = moves.begin();
+}
+
+IView* GameModel::update(IView* sender, const float dt)
+{
+  IView* ret = sender;
+  //if(t > 10000.f) 
+  {
+    t = 0.f;
+    while(!putIsPossible(mov)) 
+    {
+      mov = Vec2d(rand()%3, rand()%3);
+    }
+    ret = put(sender, mov);
+    //if(it != moves.end()) ++it; else it = moves.begin();
+  }
+  t += dt;
+  
+  return ret;
 }
 
 bool GameModel::putIsPossible(const Vec2d& pos) const
@@ -114,7 +138,8 @@ IView* GameModel::keyEventsHandler(IView* sender, const int key)
     case 'd': if(m_cursor.pos.x < 2) m_cursor.pos += Vec2d(1,0); break;
     case 'q': return new PauseMenuView(this);
     case ' ': 
-        return put(sender, m_cursor.pos);
+        //return put(sender, m_cursor.pos);
+        break;
   }
   return sender;
 }
