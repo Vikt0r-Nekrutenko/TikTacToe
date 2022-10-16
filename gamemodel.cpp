@@ -45,24 +45,6 @@ void GameModel::reset()
   it = moves.begin();
 }
 
-IView* GameModel::update(IView* sender, const float dt)
-{
-  IView* ret = sender;
-  //if(t > 10000.f) 
-  {
-    t = 0.f;
-    while(!putIsPossible(mov)) 
-    {
-      mov = Vec2d(rand()%3, rand()%3);
-    }
-    ret = put(sender, mov);
-    //if(it != moves.end()) ++it; else it = moves.begin();
-  }
-  t += dt;
-  
-  return ret;
-}
-
 bool GameModel::putIsPossible(const Vec2d& pos) const
 {
   return m_board[3 * pos.y + pos.x] == 'e';
@@ -138,8 +120,7 @@ IView* GameModel::keyEventsHandler(IView* sender, const int key)
     case 'd': if(m_cursor.pos.x < 2) m_cursor.pos += Vec2d(1,0); break;
     case 'q': return new PauseMenuView(this);
     case ' ': 
-        //return put(sender, m_cursor.pos);
-        break;
+        return put(sender, m_cursor.pos);
   }
   return sender;
 }
@@ -184,6 +165,16 @@ void GameModel::loadTree()
     root->load(file, nullptr);
   file.close();
   root = main;
+}
+
+void GameModel::trainee(IView* sender)
+{
+    int it = TraineeIteration;
+    while(it--) {
+        while(put(sender, {rand()%3, rand()%3}) == sender);
+        reset();
+    }
+    saveTree();
 }
 
 void Node::save(std::ofstream& file) const

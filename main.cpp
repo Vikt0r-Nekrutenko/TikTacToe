@@ -1,3 +1,4 @@
+#include "endview.hpp"
 #include "window.hpp"
 #include "gamemodel.hpp"
 #include "menuview.hpp"
@@ -12,35 +13,27 @@ class Game : public stf::Window
 
     GameModel model = GameModel(&story);
     MenuView menuView = MenuView(&model);
+    EndView endView = EndView(&model);
     IView* currentView = &menuView;
-    int iter = 20000;
 
   public:
 
-  bool onUpdate(const float dt)
+    bool onUpdate(const float dt)
     {
-    currentView = currentView->update(dt);
-    if(iter--) { keyEvents(' ');
-      renderer.draw({0,1}, "%d", iter);
-    } else {
-      currentView->show(renderer);
-    }
-    if(iter <= 17919) {
-      currentView->show(renderer);
-    }
-    return currentView->isContinue();
+        currentView->show(renderer);
+        return currentView->isContinue();
     }
     void keyEvents(const int key)
     {
-    currentView = currentView->keyEventsHandler(key);
+        currentView = currentView->keyEventsHandler(key);
     }
     void mouseEvents(const stf::MouseRecord &mr)
     {
-      currentView = currentView->mouseEventsHandler(mr);
+        currentView = currentView->mouseEventsHandler(mr);
     }
 };
 
 int main()
 {
-  try{return Game().run();}catch(float t){printf("%f\n",t);}
+  return Game().run();
 }
