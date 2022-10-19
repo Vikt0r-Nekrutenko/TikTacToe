@@ -169,12 +169,8 @@ void GameModel::loadTree()
 
 void GameModel::trainee(IView* sender)
 {
-    int it = TraineeIteration;
-    while(it--) {
-        while(put(sender, {rand()%3, rand()%3}) == sender);
-        reset();
-    }
-    saveTree();
+    while(put(sender, {rand()%3, rand()%3}) == sender);
+    reset();
 }
 
 void Node::save(std::ofstream& file) const

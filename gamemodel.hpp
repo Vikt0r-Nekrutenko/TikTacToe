@@ -97,7 +97,7 @@ class GameModel : public BaseModel
   
 public:
   // 12'727'648 mb
-  const size_t TraineeIteration = 362'880;
+  const size_t TraineeIteration = 10000;//362'880;
 
   GameModel(GameResultInfoModel* model);
   const uint8_t* board() const { return m_board; }

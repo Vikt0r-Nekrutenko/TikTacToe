@@ -1,4 +1,3 @@
-#include "endview.hpp"
 #include "window.hpp"
 #include "gamemodel.hpp"
 #include "menuview.hpp"
@@ -13,7 +12,6 @@ class Game : public stf::Window
 
     GameModel model = GameModel(&story);
     MenuView menuView = MenuView(&model);
-    EndView endView = EndView(&model);
     IView* currentView = &menuView;
 
   public:

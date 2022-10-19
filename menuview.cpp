@@ -5,6 +5,8 @@
 #include "storyview.hpp"
 #include "closeview.hpp"
 
+int traineeIteration = 0;
+
 MenuView::MenuView(GameModel* model)
   : IView(model), m_smenu(Sprite("sprs/menu.spr")) {
     m_menuItemsCount = m_smenu.markers().size() / 2;
@@ -17,6 +19,12 @@ void  MenuView::show(Renderer& renderer)
   m_smenu.show(renderer, true);
   renderer.drawPixel(pzero + m_smenu.markers().at(m_cursor * 2), '>');
   renderer.drawPixel(pzero + m_smenu.markers().at(m_cursor * 2 + 1), '<');
+
+  if(traineeIteration > 0 && traineeIteration < (int)static_cast<GameModel*>(m_model)->TraineeIteration) {
+      static_cast<GameModel*>(m_model)->trainee(this);
+      renderer.draw(pzero + m_smenu.Size() - Vec2d{14, 0}, "Trainee : %f%c", float(traineeIteration / static_cast<GameModel*>(m_model)->TraineeIteration * 100), '%');
+    ++traineeIteration;
+  }
 }
 
 IView* MenuView::keyEventsHandler(const int key)
@@ -25,6 +33,7 @@ IView* MenuView::keyEventsHandler(const int key)
   {
     case 'w': if(m_cursor > 0) --m_cursor; else if(m_cursor == 0) m_cursor = m_menuItemsCount - 1; break;;
     case 's': if(m_cursor < m_menuItemsCount - 1) ++m_cursor; else if(m_cursor == m_menuItemsCount - 1) m_cursor = 0; break;
+    case 't': traineeIteration = 1; break;
     case ' ': return menuSelectConfirm();
   }
   return this;
