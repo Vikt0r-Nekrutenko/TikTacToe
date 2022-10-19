@@ -50,8 +50,10 @@ public:
     IView* put(IView* sender, Vec2d pos);
 
 private:
-    std::list<std::pair<uint8_t, Vec2d>> m_working;
-    std::list<std::pair<uint8_t, Vec2d>> m_backup;
+    std::list<std::pair<uint8_t, Vec2d>> m_working { {0,{0,0}}, {1,{0,1}}, {2,{0,2}},
+                                                     {3,{1,0}}, {4,{1,1}}, {5,{1,2}},
+                                                     {6,{2,0}}, {7,{2,1}}, {8,{2,2}}};
+    const std::list<std::pair<uint8_t, Vec2d>> m_backup = m_working;
     Cursor m_cursor {{0,0}, 'x'};
     uint8_t m_board[9];
     
