@@ -5,6 +5,7 @@ CONFIG -= qt
 
 HEADERS += \
         gamemodel.hpp \
+        gameresultmodel.hpp \
         gamesavemodel.hpp \
         gameview.hpp \
         closeview.hpp \
@@ -16,6 +17,7 @@ HEADERS += \
 
 SOURCES += \
         gamemodel.cpp \
+    gameresultmodel.cpp \
     gamesavemodel.cpp \
         gameview.cpp \
         closeview.cpp \
