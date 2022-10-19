@@ -5,6 +5,7 @@
 #include "node.hpp"
 #include "gamesavemodel.hpp"
 #include "gameresultmodel.hpp"
+#include <list>
 #include <string>
 
 using namespace stf;
@@ -49,10 +50,12 @@ public:
     IView* put(IView* sender, Vec2d pos);
 
 private:
-
+    std::list<std::pair<uint8_t, Vec2d>> m_working;
+    std::list<std::pair<uint8_t, Vec2d>> m_backup;
     Cursor m_cursor {{0,0}, 'x'};
     uint8_t m_board[9];
     
+    Vec2d getRandomMove();
 };
 
 #endif // GAMEMODEL_HPP

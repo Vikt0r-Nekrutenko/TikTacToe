@@ -69,7 +69,30 @@ IView* GameModel::put(IView* sender, Vec2d pos)
       m_cursor.sym = m_cursor.sym == 'x' ? 'o' : 'x';
     }
   }
-  return sender;
+    return sender;
+}
+
+Vec2d GameModel::getRandomMove()
+{
+    if(m_working.empty())
+        throw "working list is empty";
+
+    Vec2d result {0,0};
+    uint8_t randIndx = rand() % m_working.size();
+
+    for(auto it = m_working.begin(); it != m_working.end(); ) {
+        if(it->first == randIndx) {
+            result = it->second;
+            it = m_working.erase(it);
+
+            for(auto itt = it; itt != m_working.end(); ++itt) {
+                ++itt->first;
+            }
+        } else {
+            ++it;
+        }
+    }
+    return result;
 }
 
 void GameModel::setCursorPosition(const Vec2d& pos)
