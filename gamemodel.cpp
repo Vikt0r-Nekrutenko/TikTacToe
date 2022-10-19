@@ -3,11 +3,10 @@
 #include "pausemenuview.hpp"
 #include <fstream>
 
-GameModel::GameModel(GameResultInfoModel* model)
-  : m_story{ model }
+GameModel::GameModel()
 { 
   reset();
-  m_story->load(m_story->header().size - 1);
+  m_story.load(m_story.header().size - 1);
   loadTree();
 }
 
@@ -32,10 +31,10 @@ IView* GameModel::put(IView* sender, Vec2d pos)
 {
   {
     auto gameOverHandler = [&](const Time& t, int winner, const Vec2d& wins){
-      m_story->gameTime = t;
-      m_story->xwins = m_story->xwins() + wins.x;
-      m_story->owins = m_story->owins() + wins.y;
-      m_story->winner = winner;
+        m_story.gameTime = t;
+        m_story.xwins = m_story.xwins() + wins.x;
+        m_story.owins = m_story.owins() + wins.y;
+        m_story.winner = winner;
     };
     
     if(m_board[3 * pos.y + pos.x] == 'e') {
@@ -57,13 +56,13 @@ IView* GameModel::put(IView* sender, Vec2d pos)
         } else {
           gameOverHandler(Time(nullptr), 'o', {0,1});
         }
-        m_story->save();
+        m_story.save();
         root->backpropagation(root->player);
         root = main;
         return new EndView(this);
       } else if (isDraw()) {
         gameOverHandler(Time(nullptr), 'd', {0,0});
-        m_story->save();
+        m_story.save();
         root = main;
         return new EndView(this);
       }

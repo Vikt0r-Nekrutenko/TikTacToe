@@ -8,9 +8,7 @@ using namespace stf::smv;
 
 class Game : public stf::Window
 {
-    GameResultInfoModel story;
-
-    GameModel model = GameModel(&story);
+    GameModel model = GameModel();
     MenuView menuView = MenuView(&model);
     IView* currentView = &menuView;
 
