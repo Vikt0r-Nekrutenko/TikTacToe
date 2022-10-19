@@ -172,35 +172,3 @@ void GameModel::trainee(IView* sender)
     while(put(sender, {rand()%3, rand()%3}) == sender);
     reset();
 }
-
-void Node::save(std::ofstream& file) const
-{
-  file << player << " " << 
-          move.x << " " << 
-          move.y << " " << 
-          wins << " " << 
-          games << " ";
-  for(uint8_t i : board) {
-    file << i << " ";
-  }
-  file << next.size();
-  file << std::endl;
-  
-  for(auto n : next) {
-    n->save(file);
-  }
-}
-
-void Node::load(std::ifstream& file, Node* prev)
-{
-  size_t next_c = 0;
-  file >> player >> move.x >> move.y >> wins >> games;
-  
-  for(uint8_t& i : board) file >> i;
-  file >> next_c;
-  
-  for(size_t i = 0; i < next_c; ++i) {
-    next.push_back(new Node(prev));
-    next.back()->load(file, next.back());
-  }
-}

@@ -2,48 +2,13 @@
 #define GAMEMODEL_HPP
 
 #include "imodel.hpp"
-#include "stackmodel.hpp"
 #include "node.hpp"
-#include "fields.hpp"
+#include "gamesavemodel.hpp"
+#include "gameresultmodel.hpp"
 #include <string>
 
 using namespace stf;
 using namespace stf::smv;
-using namespace stf::sdb;
-
-class GameModel;
-
-class GameSaveModel : public StackModel 
-{
-  public:
-  
-  GameSaveModel(GameModel* model) : StackModel("ttt_saves.sdb"), m_model(model) {}
-  
-  void save();
-  void load();
-  
-  private:
-  
-  IntVecField board = IntVecField(this, 9);
-  IntField xcursor = IntField(this);
-  IntField ycursor = IntField(this);
-  IntField player = IntField(this);
-  
-  GameModel* m_model;
-};
-
-
-class GameResultInfoModel : public Model
-{
-  public:
-  
-  GameResultInfoModel() : Model("ttt_scores.sdb") { }
-  
-  DateTimeField gameTime = DateTimeField(this);
-  IntField winner = IntField(this);
-  IntField owins = IntField(this);
-  IntField xwins = IntField(this);
-};
 
 class GameModel : public BaseModel
 {
