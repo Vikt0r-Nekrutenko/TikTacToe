@@ -3,6 +3,7 @@
 
 #include "imodel.hpp"
 #include "stackmodel.hpp"
+#include "node.hpp"
 #include "fields.hpp"
 #include <string>
 
@@ -42,47 +43,6 @@ class GameResultInfoModel : public Model
   IntField winner = IntField(this);
   IntField owins = IntField(this);
   IntField xwins = IntField(this);
-};
-
-class Node
-{
-  public:
-  Node(Node *prev) : previous(prev) { memset(board, 'e', 9); }
-  Node* isMoveExist(const Vec2d& mv)
-  {
-    for(auto m : next) {
-      if(m->move == mv) {
-        return m;
-      }
-    }
-    return this;
-  }
-  void backpropagation() {
-    // wins += 0.5;
-    ++games;
-    if(previous != nullptr)
-      previous->backpropagation();
-  }
-  void backpropagation(uint8_t winner)
-  {
-    if(player == winner)
-      ++wins;
-    ++games;
-    if(previous != nullptr)
-      previous->backpropagation(winner);
-  }
-  
-  void save(std::ofstream& file) const;
-  void load(std::ifstream& file, Node* prev);
-  
-  Node *previous = nullptr;
-  std::vector<Node*> next;
-  
-  uint8_t board[9];
-  stf::Vec2d move {-1, -1};
-  uint16_t wins = 0u;
-  uint16_t games = 0u;
-  uint8_t player {'o'};
 };
 
 class GameModel : public BaseModel

@@ -9,6 +9,7 @@ HEADERS += \
         closeview.hpp \
         endview.hpp \
         menuview.hpp \
+        node.hpp \
         pausemenuview.hpp \
         storyview.hpp
 
@@ -18,6 +19,7 @@ SOURCES += \
         closeview.cpp \
         endview.cpp \
         menuview.cpp \
+    node.cpp \
         pausemenuview.cpp \
         storyview.cpp \
         main.cpp \
