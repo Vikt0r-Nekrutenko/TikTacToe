@@ -13,6 +13,7 @@ HEADERS += \
         menuview.hpp \
         node.hpp \
         pausemenuview.hpp \
+        playerselectview.hpp \
         storyview.hpp
 
 SOURCES += \
@@ -25,6 +26,7 @@ SOURCES += \
         menuview.cpp \
     node.cpp \
         pausemenuview.cpp \
+    playerselectview.cpp \
         storyview.cpp \
         main.cpp \
 
