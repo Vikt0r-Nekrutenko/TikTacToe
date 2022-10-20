@@ -32,6 +32,9 @@ public:
   inline void setOplayer() { m_player = 'o'; }
   inline void setXplayer() { m_player = 'x'; }
 
+  inline void enableOnePlayerMode() { m_onePlayerMode = false; }
+  inline void enableTwoPlayerMode() { m_onePlayerMode = true; }
+
   void reset();
   bool isDraw() const;
   bool mode() const { return m_onePlayerMode; }
