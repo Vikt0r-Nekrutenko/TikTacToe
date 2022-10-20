@@ -1,7 +1,6 @@
 #include "window.hpp"
 #include "gamemodel.hpp"
 #include "menuview.hpp"
-#include "gameview.hpp"
 #include <iostream>
 
 using namespace stf;
