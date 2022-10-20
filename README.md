@@ -31,4 +31,5 @@ a - move right<br>
 s - move down<br>
 m - (in game process) switch the game mode</br> 
 Space - place the symbol/Enter<br><br>
-Copyright (C) 2022 Viktor Nekrutenko
+------------------------------------
+*Copyright (C) 2022 Viktor Nekrutenko*
