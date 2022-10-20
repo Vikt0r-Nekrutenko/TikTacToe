@@ -5,25 +5,31 @@ CONFIG -= qt
 
 HEADERS += \
         gamemodel.hpp \
+        gameresultmodel.hpp \
+        gamesavemodel.hpp \
         gameview.hpp \
         closeview.hpp \
         endview.hpp \
         menuview.hpp \
+        node.hpp \
         pausemenuview.hpp \
         storyview.hpp
 
 SOURCES += \
         gamemodel.cpp \
+    gameresultmodel.cpp \
+    gamesavemodel.cpp \
         gameview.cpp \
         closeview.cpp \
         endview.cpp \
         menuview.cpp \
+    node.cpp \
         pausemenuview.cpp \
         storyview.cpp \
         main.cpp \
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../stf/release/ -lstf
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../stf/debug/ -lstf
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../stf/release/ -lstf
 
 INCLUDEPATH += $$PWD/../stf \
                $$PWD/../stf/sdb \

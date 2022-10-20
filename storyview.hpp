@@ -16,6 +16,7 @@ class StoryView : public IView
   StoryView(GameModel* model, IView* sender);
   void show(Renderer& renderer) final;
   IView* keyEventsHandler(const int key) override;
+  IView* update(const float dt) override { return this; }
 
   protected:
 

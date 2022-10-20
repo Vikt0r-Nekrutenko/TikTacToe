@@ -16,6 +16,7 @@ class MenuView : public IView
   MenuView(GameModel* model);
   void show(Renderer& renderer) override;
   IView* keyEventsHandler(const int key) override;
+  IView* update(const float dt) override { return this; }
 
   protected:
 
