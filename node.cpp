@@ -13,6 +13,17 @@ Node *Node::isMoveExist(const Vec2d &mv)
     return this;
 }
 
+Node *Node::getMaxMove()
+{
+    Node* max = this;
+    for(auto m : next) {
+        if(max == this || m->wins > max->wins) {
+            max = m;
+        }
+    }
+    return max;
+}
+
 void Node::backpropagation() {
     // wins += 0.5;
     ++games;

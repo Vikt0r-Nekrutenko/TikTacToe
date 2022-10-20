@@ -12,6 +12,7 @@ class Node
   public:
   Node(Node *prev);
   Node* isMoveExist(const Vec2d& mv);
+  Node* getMaxMove();
   void backpropagation();
   void backpropagation(uint8_t winner);
 

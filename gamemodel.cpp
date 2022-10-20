@@ -73,6 +73,23 @@ void GameModel::setCursorPosition(const Vec2d& pos)
   }
 }
 
+IView *GameModel::update(IView *sender, const float)
+{
+    if(m_cursor.sym == 'x') {
+        Node *botMove = root->getMaxMove();
+        if(botMove != root) {
+            return put(sender, botMove->move);
+        } else {
+            Vec2d mv {rand()%3, rand()%3};
+            while(!putIsPossible(mv)) {
+                mv = {rand()%3, rand()%3};
+            }
+            return put(sender, mv);
+        }
+    }
+    return sender;
+}
+
 IView* GameModel::mouseEventsHandler(IView* sender, const MouseRecord& mr)
 {
   if(mr.type == MouseInputType::leftPressed) {

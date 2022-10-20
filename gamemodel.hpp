@@ -23,7 +23,7 @@ class GameModel : public BaseModel
   
 public:
   // 12'727'648 mb
-  const size_t TraineeIteration = 10000;//362'880;
+  const size_t TraineeIteration = 362'880;
 
   GameModel();
   const uint8_t* board() const { return m_board; }
@@ -33,6 +33,7 @@ public:
   bool isDraw() const;
   void setCursorPosition(const Vec2d& pos);
   GameResultInfoModel& getResult() { return m_story; }
+  IView *update(IView *sender, const float dt) final;
   IView* keyEventsHandler(IView* sender, const int key) final;
   IView* mouseEventsHandler(IView* sender, const MouseRecord& mr) final;
   bool putIsPossible(const Vec2d& pos) const;
