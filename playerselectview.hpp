@@ -22,7 +22,6 @@ public:
 
     Sprite m_choise;
     int m_cursor = 0;
-    int m_menuItemsCount;
 
     virtual IView* menuSelectConfirm();
 };

@@ -29,6 +29,9 @@ public:
   const uint8_t* board() const { return m_board; }
   const Cursor& cursor() const { return m_cursor; }
 
+  inline void setOplayer() { m_player = 'o'; }
+  inline void setXplayer() { m_player = 'x'; }
+
   void reset();
   bool isDraw() const;
   bool mode() const { return m_isManualControl; }
@@ -55,6 +58,7 @@ private:
     Cursor m_cursor {{0,0}, 'x'};
     bool m_isManualControl = 0;
     uint8_t m_board[9];
+    uint8_t m_player = 0;
 };
 
 #endif // GAMEMODEL_HPP
