@@ -4,6 +4,7 @@
 #include "pausemenuview.hpp"
 #include "storyview.hpp"
 #include "closeview.hpp"
+#include "playerselectview.hpp"
 
 int traineeIteration = 0;
 
@@ -52,7 +53,7 @@ IView* MenuView::menuSelectConfirm()
 {
   switch(m_cursor)
   {
-    case 0: return new GameView(static_cast<GameModel*>(m_model), true);
+    case 0: return new PlayerSelectView(static_cast<GameModel*>(m_model));
     case 1: traineeIteration = 1; break;
     case 2:
       try {
