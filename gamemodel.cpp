@@ -75,7 +75,7 @@ void GameModel::setCursorPosition(const Vec2d& pos)
 
 IView *GameModel::update(IView *sender, const float)
 {
-    if(m_cursor.sym == 'x' && !m_manualControl) {
+    if(m_cursor.sym == 'x' && m_isManualControl) {
         Node *botMove = root->getMaxMove();
         if(botMove != root) {
             return put(sender, botMove->move);
@@ -106,7 +106,7 @@ IView* GameModel::keyEventsHandler(IView* sender, const int key)
     case 'a': if(m_cursor.pos.x > 0) m_cursor.pos -= Vec2d(1,0); break;
     case 's': if(m_cursor.pos.y < 2) m_cursor.pos += Vec2d(0,1); break;
     case 'd': if(m_cursor.pos.x < 2) m_cursor.pos += Vec2d(1,0); break;
-    case 'm': m_manualControl ^= 1; break;
+    case 'm': m_isManualControl ^= 1; break;
     case 'q': return new PauseMenuView(this);
     case ' ': 
         return put(sender, m_cursor.pos);

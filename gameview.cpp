@@ -23,7 +23,12 @@ void GameView::show(Renderer& renderer)
   
   renderer.drawFrame(cell(cursorPos) - Vec2d(1,0), Vec2d(3,1));
   renderer.drawPixel(cell({-1,0}), static_cast<GameModel*>(m_model)->cursor().sym);
-  
+
+  renderer.drawText(Vec2d(renderer.Size.x - 22, 2), "Game mode: ");
+  (static_cast<GameModel*>(m_model)->mode() == 0)
+    ? renderer.drawText(Vec2d(renderer.Size.x - 11, 2), "One player")
+    : renderer.drawText(Vec2d(renderer.Size.x - 11, 2), "Two player");
+
   for(int i = 0; i < 9; ++i) {
     renderer.drawPixel(pzero + m_board.markers().at(i + 1), static_cast<GameModel*>(m_model)->board()[i] != 'e' ? static_cast<GameModel*>(m_model)->board()[i] : ' ');
   }

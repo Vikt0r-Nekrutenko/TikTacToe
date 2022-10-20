@@ -31,6 +31,7 @@ public:
 
   void reset();
   bool isDraw() const;
+  bool mode() const { return m_isManualControl; }
   void setCursorPosition(const Vec2d& pos);
   GameResultInfoModel& getResult() { return m_story; }
   IView *update(IView *sender, const float dt) final;
@@ -52,7 +53,7 @@ public:
 
 private:
     Cursor m_cursor {{0,0}, 'x'};
-    bool m_manualControl = 0;
+    bool m_isManualControl = 0;
     uint8_t m_board[9];
 };
 
