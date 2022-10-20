@@ -28,13 +28,10 @@ void GameView::show(Renderer& renderer)
     renderer.drawPixel(pzero + m_board.markers().at(i + 1), static_cast<GameModel*>(m_model)->board()[i] != 'e' ? static_cast<GameModel*>(m_model)->board()[i] : ' ');
   }
   int j = 2;
+  renderer.drawText({0,j}, "Move | Wins Games");
   for(auto node : static_cast<GameModel*>(m_model)->root->next)
   {
-    //for(int i = 0; i < 9; ++i) {
-    //  renderer.drawPixel(Vec2d(0,m_board.Size().y * j + 1) + m_board.markers().at(i + 1), static_cast<GameModel*>(m_model)->root->board[i]);
-    //}
-    renderer.draw(Vec2d(0,j++), "%c | %d:%d | %d %d", node->player, node->move.x, node->move.y, node->wins, node->games);
-    ++j;
+    renderer.draw(Vec2d(0,++j), " %d:%d | %d %d", node->move.x, node->move.y, node->wins, node->games);
   }
 }
 
