@@ -52,6 +52,7 @@ public:
 
 private:
     Cursor m_cursor {{0,0}, 'x'};
+    bool m_manualControl = 0;
     uint8_t m_board[9];
 };
 
