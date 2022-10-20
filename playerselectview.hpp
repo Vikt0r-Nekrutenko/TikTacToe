@@ -9,14 +9,15 @@ using namespace stf::smv;
 
 class GameModel;
 
-class PlayerSelectView : public IView
+class SelectView : public IView
 {
 public:
-    PlayerSelectView(GameModel *model);
+    SelectView(GameModel *model, const char* spriteName);
+    virtual ~SelectView() = default;
 
     void show(Renderer& renderer) override;
-    IView* keyEventsHandler(const int key) override;
-    IView* update(const float) override { return this; }
+    IView* keyEventsHandler(const int key) final;
+    IView* update(const float) final { return this; }
 
     protected:
 
@@ -24,6 +25,22 @@ public:
     int m_cursor = 0;
 
     virtual IView* menuSelectConfirm();
+};
+
+class ModeSelectView : public SelectView
+{
+public:
+    ModeSelectView(GameModel *model);
+protected:
+    virtual IView* menuSelectConfirm();
+};
+
+class PlayerSelectView : public SelectView
+{
+public:
+    PlayerSelectView(GameModel *model);
+protected:
+    IView* menuSelectConfirm() override;
 };
 
 #endif // PLAYERSELECTVIEW_HPP
