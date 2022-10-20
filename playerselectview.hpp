@@ -24,7 +24,7 @@ public:
     Sprite m_choise;
     int m_cursor = 0;
 
-    virtual IView* menuSelectConfirm();
+    virtual IView* menuSelectConfirm() = 0;
 };
 
 class ModeSelectView : public SelectView

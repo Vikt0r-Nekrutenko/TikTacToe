@@ -27,7 +27,7 @@ IView *SelectView::keyEventsHandler(const int key)
 }
 
 PlayerSelectView::PlayerSelectView(GameModel *model)
-    : SelectView(model, "sprs/player.spr") {}
+    : SelectView(model, "sprs/choise.spr") {}
 
 IView *PlayerSelectView::menuSelectConfirm()
 {
