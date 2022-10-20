@@ -22,7 +22,7 @@ void  MenuView::show(Renderer& renderer)
 
   if(traineeIteration > 0 && traineeIteration < (int)static_cast<GameModel*>(m_model)->TraineeIteration) {
       static_cast<GameModel*>(m_model)->trainee(this);
-      renderer.draw(pzero + m_smenu.Size() - Vec2d{14, 0}, "Trainee : %d%c",
+      renderer.draw(pzero + m_smenu.markers().at(3) + Vec2d(1, 0), "Training : %d%c",
                     int(float(traineeIteration) / static_cast<GameModel*>(m_model)->TraineeIteration * 100), '%');
     ++traineeIteration;
   }
@@ -30,11 +30,12 @@ void  MenuView::show(Renderer& renderer)
 
 IView* MenuView::keyEventsHandler(const int key)
 {
+  if(traineeIteration > 0 && traineeIteration < (int)static_cast<GameModel*>(m_model)->TraineeIteration)
+      return this;
   switch(key)
   {
     case 'w': if(m_cursor > 0) --m_cursor; else if(m_cursor == 0) m_cursor = m_menuItemsCount - 1; break;;
     case 's': if(m_cursor < m_menuItemsCount - 1) ++m_cursor; else if(m_cursor == m_menuItemsCount - 1) m_cursor = 0; break;
-    case 't': traineeIteration = 1; break;
     case ' ': return menuSelectConfirm();
   }
   return this;

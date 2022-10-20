@@ -138,7 +138,7 @@ void GameModel::loadTree()
   root = main;
 }
 
-void GameModel::trainee(IView* sender)
+void GameModel::train(IView* sender)
 {
     while(put(sender, {rand()%3, rand()%3}) == sender);
     reset();

@@ -38,7 +38,7 @@ public:
   bool putIsPossible(const Vec2d& pos) const;
   void saveTree() const;
   void loadTree();
-  void trainee(IView *sender);
+  void train(IView *sender);
   
     GameSaveModel saves = GameSaveModel(this);
     GameResultInfoModel m_story = GameResultInfoModel();
