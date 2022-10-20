@@ -1,6 +1,7 @@
 #include "window.hpp"
 #include "gamemodel.hpp"
 #include "menuview.hpp"
+#include "gameview.hpp"
 #include <iostream>
 
 using namespace stf;
@@ -31,5 +32,5 @@ class Game : public stf::Window
 
 int main()
 {
-  return Game().run();
+    return Game().run();
 }

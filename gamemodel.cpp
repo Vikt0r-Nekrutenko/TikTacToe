@@ -10,16 +10,10 @@ GameModel::GameModel()
   loadTree();
 }
 
-float t = 0;
-std::vector<Vec2d> moves = { {0,0}, {1,0}, {1,1}, {2,1}, {2,2} };
-std::vector<Vec2d>::iterator it = moves.begin();
-Vec2d mov = Vec2d(rand()%3, rand()%3);
-
 void GameModel::reset()
 {
   memset(m_board, 'e', 9);
   m_cursor = GameModel::Cursor{{0,0}, 'x'};
-  it = moves.begin();
 }
 
 bool GameModel::putIsPossible(const Vec2d& pos) const
@@ -70,29 +64,6 @@ IView* GameModel::put(IView* sender, Vec2d pos)
     }
   }
     return sender;
-}
-
-Vec2d GameModel::getRandomMove()
-{
-    if(m_working.empty())
-        throw "working list is empty";
-
-    Vec2d result {0,0};
-    uint8_t randIndx = rand() % m_working.size();
-
-    for(auto it = m_working.begin(); it != m_working.end(); ) {
-        if(it->first == randIndx) {
-            result = it->second;
-            it = m_working.erase(it);
-
-            for(auto itt = it; itt != m_working.end(); ++itt) {
-                ++itt->first;
-            }
-        } else {
-            ++it;
-        }
-    }
-    return result;
 }
 
 void GameModel::setCursorPosition(const Vec2d& pos)
