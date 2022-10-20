@@ -11,6 +11,7 @@ HEADERS += \
         closeview.hpp \
         endview.hpp \
         menuview.hpp \
+        modeselectview.hpp \
         node.hpp \
         pausemenuview.hpp \
         playerselectview.hpp \
@@ -24,6 +25,7 @@ SOURCES += \
         closeview.cpp \
         endview.cpp \
         menuview.cpp \
+    modeselectview.cpp \
     node.cpp \
         pausemenuview.cpp \
     playerselectview.cpp \
