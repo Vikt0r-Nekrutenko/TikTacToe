@@ -22,7 +22,8 @@ void  MenuView::show(Renderer& renderer)
 
   if(traineeIteration > 0 && traineeIteration < (int)static_cast<GameModel*>(m_model)->TraineeIteration) {
       static_cast<GameModel*>(m_model)->trainee(this);
-      renderer.draw(pzero + m_smenu.Size() - Vec2d{14, 0}, "Trainee : %f%c", float(traineeIteration / static_cast<GameModel*>(m_model)->TraineeIteration * 100), '%');
+      renderer.draw(pzero + m_smenu.Size() - Vec2d{14, 0}, "Trainee : %d%c",
+                    int(float(traineeIteration) / static_cast<GameModel*>(m_model)->TraineeIteration * 100), '%');
     ++traineeIteration;
   }
 }
