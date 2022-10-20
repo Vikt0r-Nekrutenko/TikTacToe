@@ -25,7 +25,8 @@ IView *PlayerSelectView::keyEventsHandler(const int key)
 IView *PlayerSelectView::menuSelectConfirm()
 {
     switch (m_cursor) {
-    case 0: static_cast<GameModel*>(m_model)->enableTwoPlayerMode(); break;
-    case 1: static_cast<GameModel*>(m_model)->enableOnePlayerMode(); break;
+    case 0: static_cast<GameModel*>(m_model)->setXplayer(); break;
+    case 1: static_cast<GameModel*>(m_model)->setOplayer(); break;
     }
+    return this;
 }
