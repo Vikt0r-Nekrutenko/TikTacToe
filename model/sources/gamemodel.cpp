@@ -6,7 +6,9 @@
 GameModel::GameModel()
 { 
   reset();
-  m_story.load(m_story.header().size - 1);
+  try {
+    m_story.load(m_story.header().size - 1);
+  } catch(...) { }
   loadTree();
 }
 
